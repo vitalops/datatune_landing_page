@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dataune.ai - Simplify LLM Training</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <div class="logo">Datatune.ai</div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#features">Features</a>
+                <a href="#blog">Blog</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Simplified Data Infrastructure</h1>
+            <p class="subtitle">Unified platform for AI data workflows</p>
+            <a href="#contact" class="cta-button">Get Started</a>
+        </div>
+    </section>
+
+    <section id="features">
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🔄</div>
+                <h3>Unified Platform</h3>
+                <p>Manage all your data in one place. Combine data from multiple sources, add labels, and edit through intuitive dataset views.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔄</div>
+                <h3>Efficient Streaming</h3>
+                <p>Stream data in batches directly to your machines. No need to download huge datasets - data flows as needed from our server.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🛠️</div>
+                <h3>Easy Integration</h3>
+                <p>Simple SDK for seamless integration with your training pipeline with just a few lines of code to get started.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="blog">
+        <div class="blog-grid">
+            <div class="blog-card">
+                <div class="blog-content">
+                    <div class="blog-date">January 2025</div>
+                    <h3>Simplifying LLM Training with DataTune: A Beginner's Guide</h3>
+                    <p>Learn how to overcome the challenges of LLM training - from managing scattered data to streamlining your training pipeline. Discover how Datatune simplifies the entire process for researchers and developers...</p>
+                    <div class="blog-author">By Abhijith Neil Abraham · 10 min read</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>hello@datatune.ai</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="#features">Features</a>
+                <a href="#blog">Blog</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <a href="#">GitHub</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.from(".feature-card", {
+            scrollTrigger: {
+                trigger: ".features",
+                start: "top center",
+                toggleActions: "play none none reverse",
+                once: true  // Add this to prevent animation replay
+            },
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.2,
+            clearProps: "all"  // Add this to clear properties after animation
+        });
+
+        gsap.from(".blog-card", {
+            scrollTrigger: {
+                trigger: ".blog-grid",
+                start: "top center",
+                toggleActions: "play none none reverse"
+            },
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.2
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

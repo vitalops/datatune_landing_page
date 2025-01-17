@@ -157,6 +157,8 @@ section {
     text-decoration: none;
     color: inherit;
     display: block;
+    /* opacity: 1 !important; */
+    /* transform: none !important; */
 }
 
 .blog-card:hover {

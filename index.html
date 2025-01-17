@@ -114,12 +114,20 @@
             scrollTrigger: {
                 trigger: ".blog-grid",
                 start: "top center",
-                toggleActions: "play none none reverse"
+                toggleActions: "play none none none",
+                once: true
             },
-            y: 50,
+            y: 30,
             opacity: 0,
-            duration: 1,
-            stagger: 0.2
+            duration: 0.8,
+            clearProps: "all",  // Important: clear all properties after animation
+            onComplete: () => {
+                // Ensure visibility even if animation fails
+                document.querySelectorAll('.blog-card').forEach(card => {
+                    card.style.opacity = 1;
+                    card.style.transform = 'none';
+                });
+            }
         });
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {

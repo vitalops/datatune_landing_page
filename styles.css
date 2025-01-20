@@ -86,6 +86,13 @@ h1 {
     margin-bottom: 2rem;
 }
 
+.button-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
 .cta-button {
     background: var(--primary);
     color: white;
@@ -93,12 +100,24 @@ h1 {
     border-radius: 8px;
     text-decoration: none;
     font-weight: bold;
-    transition: transform 0.3s;
+    transition: all 0.3s ease;
     display: inline-block;
+}
+
+.cta-button-secondary {
+    background: transparent;
+    color: var(--primary);
+    border: 2px solid var(--primary);
 }
 
 .cta-button:hover {
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+}
+
+.cta-button-secondary:hover {
+    background: var(--primary);
+    color: white;
 }
 
 section {
@@ -263,5 +282,16 @@ footer {
 
     .nav-links {
         display: none;
+    }
+
+    .button-group {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .cta-button {
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
     }
 }

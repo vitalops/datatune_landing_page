@@ -3,169 +3,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dataune.ai - Unify the AI Data Cycle</title>
+    <title>DataTune - your backend for LLM powered data applications</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
 <body>
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
     <nav>
-        <div class="nav-content">
-            <div class="logo">
-                <img src="datatune-logo.png" alt="Datatune.ai Logo" style="height: 40px; width: auto;">
-                Datatune.ai
-            </div>
-            <div class="nav-links">
-                <a href="#home">Home</a>
-                <a href="#features">Features</a>
-                <a href="#blog">Blog</a>
-                <a href="https://docs.datatune.ai/" target="_blank">Docs</a>
-                <a href="https://github.com/vitalops/datatune" target="_blank">GitHub</a>
-                <a href="#contact">Contact</a>
-            </div>
+        <div class="nav-container">
+            <div class="logo">DataTune</div>
+            <ul class="nav-tabs">
+                <li class="nav-tab"><a href="#home">Home</a></li>
+                <li class="nav-tab"><a href="#features">Features</a></li>
+                <li class="nav-tab"><a href="https://docs.datatune.ai" target="_blank">Documentation</a></li>
+                <li class="nav-tab"><a href="https://github.com/vitalops/datatune" target="_blank">GitHub</a></li>
+            </ul>
         </div>
     </nav>
 
+    <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-content">
-            <h1>Simplified Data Infrastructure</h1>
-            <p class="subtitle">Unified platform for AI data workflows</p>
-            <div class="button-group">
-                <a href="https://calendly.com/abhijith-vitalops/30min" class="cta-button" target="_blank">Book a Call</a>
-                <a href="https://forms.gle/RCMgrr5kz25QquPm9" class="cta-button cta-button-secondary">Get Demo</a>
+            <div class="hero-badge">
+                <span>🎵 Open Source</span>
             </div>
-        </div>
-    </section>
-    <section id="features">
-        <div class="features">
-            <div class="feature-card">
-                <div class="feature-icon">🔄</div>
-                <h3>Unified Platform</h3>
-                <p>Manage all your data in one place. Combine data from multiple sources, add labels, and edit through intuitive dataset views.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🔄</div>
-                <h3>Efficient Streaming</h3>
-                <p>Stream data in batches directly to your machines. No need to download huge datasets - data flows as needed from our server.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🛠️</div>
-                <h3>Easy Integration</h3>
-                <p>Simple SDK for seamless integration with your training pipeline with just a few lines of code to get started.</p>
+            <h1>DataTune</h1>
+            <p class="hero-tagline">Your backend for LLM powered data applications</p>
+            <div class="hero-actions">
+                <a href="https://docs.datatune.ai" target="_blank" class="btn btn-secondary">Get started</a>
             </div>
         </div>
     </section>
 
-    <section id="blog">
-        <div class="section-title">
-            <h2>Latest from Our Blog</h2>
-        </div>
-        <div class="blog-grid">
-            <a href="https://medium.com/@abhijithneilabraham/simplify-large-data-processing-with-datatune-01ecfb736bcd" class="blog-card">
-                <div class="blog-content">
-                    <div class="blog-meta">
-                        <span class="blog-date">January 2025</span>
-                        <span class="blog-read-time">4 min read</span>
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="section-container">
+            <h2 class="section-title">What Can DataTune Do?</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z"></path>
+                            <path d="M2 17L12 22L22 17"></path>
+                            <path d="M2 12L12 17L22 12"></path>
+                        </svg>
                     </div>
-                    <h3>Simplify Large Data Processing with DataTune</h3>
-                    <p>Discover how DataTune's batch streaming and parallel processing capabilities can help you save processing time when working with large datasets.</p>
-                    <div class="blog-author">
-                        <span>Abhijith Neil Abraham</span>
-                    </div>
-                    <div class="read-more">
-                        Read Article 
-                        <span class="arrow">→</span>
+                    <h3> Data Transformations using natural language prompts</h3>
+                    <p> Modify your data by describing what you want to do in natural language.</p>
+                    <div class="feature-example">
+                        <em>"Extract customer location from address field"</em>
                     </div>
                 </div>
-            </a>
-            <a href="https://medium.com/@abhijithneilabraham/4492c6ca5812" class="blog-card">
-                <div class="blog-content">
-                    <div class="blog-meta">
-                        <span class="blog-date">January 2025</span>
-                        <span class="blog-read-time">10 min read</span>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="M21 21L16.65 16.65"></path>
+                        </svg>
                     </div>
-                    <h3>Simplifying LLM Training with DataTune: A Beginner's Guide</h3>
-                    <p>Training large language models (LLMs) can be challenging. Learn how to overcome the challenges of managing scattered data and streamline your training pipeline with DataTune.</p>
-                    <div class="blog-author">
-                        <span>Abhijith Neil Abraham</span>
-                    </div>
-                    <div class="read-more">
-                        Read Article 
-                        <span class="arrow">→</span>
+                    <h3>Ask Questions, Get Answers</h3>
+                    <p>Query your data conversationally. Ask questions on top of your databases and spreadsheets and retrieve accurate answers.</p>
+                    <div class="feature-example">
+                        <em>"Show me top selling products by region"</em>
                     </div>
                 </div>
-            </a>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 9L12 16L22 9L12 2Z"></path>
+                            <path d="M2 17L12 24L22 17M2 12L12 19L22 12"></path>
+                        </svg>
+                    </div>
+                    <h3>Train Custom AI Models</h3>
+                    <p>Create AI models that understand your specific data and business context. Fine-tune language models for your unique needs.</p>
+                    <div class="feature-example">
+                        <em>"Train a model to understand our product catalog."</em>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <footer id="contact">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Contact Us</h3>
-                <p>hello@vitalops.ai</p>
-            </div>
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <a href="#features">Features</a>
-                <a href="#blog">Blog</a>
-                <a href="#contact">Contact</a>
-            </div>
-            <div class="footer-section">
-                <h3>Follow Us</h3>
-                <a href="https://github.com/vitalops">GitHub</a>
-                <a href="https://www.linkedin.com/company/datatune-ai/">Linkedin</a>
-                <a href="https://x.com/datatune_ai">Twitter</a>
-               
 
 
+    <!-- Use Cases Section -->
+    <section class="usecases-section">
+        <div class="section-container">
+            <h2 class="section-title">Perfect For</h2>
+            
+            <div class="usecases-grid">
+                <div class="usecase-card">
+                    <h3>Data Scientists</h3>
+                    <p>Spend less time on data prep, more time on insights</p>
+                </div>
+                <div class="usecase-card">
+                    <h3>Business Analysts</h3>
+                    <p>Extract insights without learning complex query languages</p>
+                </div>
+                <div class="usecase-card">
+                    <h3>Product Teams</h3>
+                    <p>Quickly analyze user data and product metrics</p>
+                </div>
+                <div class="usecase-card">
+                    <h3>Researchers</h3>
+                    <p>Process and analyze large datasets effortlessly</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="section-container">
+            <div class="cta-content">
+                <h2>Ready to transform your data workflow?</h2>
+                <p>Join thousands of teams using DataTune to work smarter with data</p>
+                <div class="cta-actions">
+                    <a href="https://github.com/vitalops/datatune" target="_blank" class="btn btn-secondary">
+                        View on GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <!-- <div class="footer-section">
+                    <h4>DataTune</h4>
+
+                </div> -->
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <a href="https://docs.datatune.ai" target="_blank">Documentation</a>
+                    <a href="https://github.com/vitalops/datatune/tree/main/examples" target="_blank">Examples</a>
+                    <a href="https://github.com/vitalops/datatune/issues" target="_blank">Support</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <a href="mailto:hello@vitalops.ai">hello@vitalops.ai</a>
+                    <a href="https://vitalops.ai" target="_blank">VitalOps AI</a>
+                    <a href="https://github.com/vitalops/datatune" target="_blank">GitHub</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 DataTune by VitalOps. MIT License.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        gsap.registerPlugin(ScrollTrigger);
-        gsap.from(".feature-card", {
-            scrollTrigger: {
-                trigger: ".features",
-                start: "top center",
-                toggleActions: "play none none reverse",
-                once: true  // Add this to prevent animation replay
-            },
-            y: 50,
-            opacity: 0,
-            duration: 1,
-            stagger: 0.2,
-            clearProps: "all"  // Add this to clear properties after animation
-        });
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 15;
 
-        gsap.from(".blog-card", {
-            scrollTrigger: {
-                trigger: ".blog-grid",
-                start: "top center",
-                toggleActions: "play none none none",
-                once: true
-            },
-            y: 30,
-            opacity: 0,
-            duration: 0.8,
-            clearProps: "all",  // Important: clear all properties after animation
-            onComplete: () => {
-                // Ensure visibility even if animation fails
-                document.querySelectorAll('.blog-card').forEach(card => {
-                    card.style.opacity = 1;
-                    card.style.transform = 'none';
-                });
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                const size = Math.random() * 4 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 20 + 20) + 's';
+                
+                particlesContainer.appendChild(particle);
             }
-        });
+        }
 
+        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
             });
         });
+
+        // Nav background on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(10, 5, 15, 0.95)';
+                nav.style.padding = '15px 50px';
+            } else {
+                nav.style.background = 'rgba(10, 5, 15, 0.8)';
+                nav.style.padding = '20px 50px';
+            }
+        });
+
+        // Initialize
+        createParticles();
     </script>
 </body>
 </html>

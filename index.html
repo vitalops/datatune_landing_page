@@ -14,7 +14,12 @@
     <nav>
         <div class="nav-container">
             <div class="logo">DataTune</div>
-            <ul class="nav-tabs">
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-tabs" id="navTabs">
                 <li class="nav-tab"><a href="#home">Home</a></li>
                 <li class="nav-tab"><a href="#features">Features</a></li>
                 <li class="nav-tab"><a href="https://docs.datatune.ai" target="_blank">Documentation</a></li>
@@ -32,7 +37,8 @@
             <h1>DataTune</h1>
             <p class="hero-tagline">Your backend for LLM powered data applications</p>
             <div class="hero-actions">
-                <a href="https://docs.datatune.ai" target="_blank" class="btn btn-secondary">Get started</a>
+                <a href="https://docs.datatune.ai" target="_blank" class="btn btn-primary">Get Started</a>
+                <a href="https://github.com/vitalops/datatune" target="_blank" class="btn btn-secondary">View on GitHub</a>
             </div>
         </div>
     </section>
@@ -51,8 +57,8 @@
                             <path d="M2 12L12 17L22 12"></path>
                         </svg>
                     </div>
-                    <h3> Data Transformations using natural language prompts</h3>
-                    <p> Modify your data by describing what you want to do in natural language.</p>
+                    <h3>Data Transformations using natural language prompts</h3>
+                    <p>Modify your data by describing what you want to do in natural language.</p>
                     <div class="feature-example">
                         <em>"Extract customer location from address field"</em>
                     </div>
@@ -89,8 +95,6 @@
         </div>
     </section>
 
-
-
     <!-- Use Cases Section -->
     <section class="usecases-section">
         <div class="section-container">
@@ -98,7 +102,7 @@
             
             <div class="usecases-grid">
                 <div class="usecase-card">
-                    <h3>Data Scientists</h3>
+                    <h3>Data Scientists and Researchers</h3>
                     <p>Spend less time on data prep, more time on insights</p>
                 </div>
                 <div class="usecase-card">
@@ -124,9 +128,8 @@
                 <h2>Ready to transform your data workflow?</h2>
                 <p>Join thousands of teams using DataTune to work smarter with data</p>
                 <div class="cta-actions">
-                    <a href="https://github.com/vitalops/datatune" target="_blank" class="btn btn-secondary">
-                        View on GitHub
-                    </a>
+                    <a href="https://docs.datatune.ai" target="_blank" class="btn btn-primary">Get Started</a>
+                    <a href="https://github.com/vitalops/datatune" target="_blank" class="btn btn-secondary">View on GitHub</a>
                 </div>
             </div>
         </div>
@@ -136,10 +139,6 @@
     <footer>
         <div class="footer-container">
             <div class="footer-content">
-                <!-- <div class="footer-section">
-                    <h4>DataTune</h4>
-
-                </div> -->
                 <div class="footer-section">
                     <h4>Resources</h4>
                     <a href="https://docs.datatune.ai" target="_blank">Documentation</a>
@@ -149,7 +148,7 @@
                 <div class="footer-section">
                     <h4>Connect</h4>
                     <a href="mailto:hello@vitalops.ai">hello@vitalops.ai</a>
-                    <a href="https://vitalops.ai" target="_blank">VitalOps AI</a>
+                    <a href="https://vitalops.ai" target="_blank">VitalOps</a>
                     <a href="https://github.com/vitalops/datatune" target="_blank">GitHub</a>
                 </div>
             </div>
@@ -160,10 +159,27 @@
     </footer>
 
     <script>
+        // Mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navTabs = document.getElementById('navTabs');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            navTabs.classList.toggle('show');
+            mobileMenuToggle.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-tab a').forEach(link => {
+            link.addEventListener('click', () => {
+                navTabs.classList.remove('show');
+                mobileMenuToggle.classList.remove('active');
+            });
+        });
+
         // Create floating particles
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
-            const particleCount = 15;
+            const particleCount = window.innerWidth <= 768 ? 8 : 15; // Fewer particles on mobile
 
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
@@ -198,16 +214,21 @@
         window.addEventListener('scroll', () => {
             const nav = document.querySelector('nav');
             if (window.scrollY > 50) {
-                nav.style.background = 'rgba(10, 5, 15, 0.95)';
-                nav.style.padding = '15px 50px';
+                nav.classList.add('scrolled');
             } else {
-                nav.style.background = 'rgba(10, 5, 15, 0.8)';
-                nav.style.padding = '20px 50px';
+                nav.classList.remove('scrolled');
             }
         });
 
         // Initialize
         createParticles();
+
+        // Recreate particles on resize
+        window.addEventListener('resize', () => {
+            const particlesContainer = document.getElementById('particles');
+            particlesContainer.innerHTML = '';
+            createParticles();
+        });
     </script>
 </body>
 </html>

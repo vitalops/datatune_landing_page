@@ -26,7 +26,7 @@ body {
     line-height: 1.6;
 }
 
-/* Animated background gradient */
+/* Subtle animated background gradient - FIXED */
 body::before {
     content: '';
     position: fixed;
@@ -34,16 +34,24 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 20%, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
+    background: 
+        radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(139, 92, 246, 0.06) 0%, transparent 50%);
     z-index: -1;
-    animation: gradientShift 20s ease-in-out infinite;
+    animation: subtleGlow 15s ease-in-out infinite;
 }
 
-@keyframes gradientShift {
-    0%, 100% { transform: rotate(0deg) scale(1); }
-    50% { transform: rotate(180deg) scale(1.1); }
+/* Subtle breathing effect instead of barrel roll */
+@keyframes subtleGlow {
+    0%, 100% { 
+        opacity: 0.8;
+        filter: brightness(1);
+    }
+    50% { 
+        opacity: 1;
+        filter: brightness(1.1);
+    }
 }
 
 /* Navigation */
@@ -208,6 +216,7 @@ nav.scrolled {
     font-weight: 800;
     margin-bottom: 24px;
     background: linear-gradient(135deg, var(--light-text) 0%, var(--primary-color) 50%, var(--secondary-color) 100%);
+    background-size: 200% 200%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     line-height: 1.1;
@@ -215,8 +224,12 @@ nav.scrolled {
 }
 
 @keyframes gradientFlow {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+    0%, 100% { 
+        background-position: 0% 50%; 
+    }
+    50% { 
+        background-position: 100% 50%; 
+    }
 }
 
 .hero-tagline {

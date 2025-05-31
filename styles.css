@@ -353,7 +353,11 @@ nav.scrolled {
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
+
 
 .feature-card::before {
     content: '';
@@ -377,7 +381,7 @@ nav.scrolled {
     box-shadow: 0 20px 40px rgba(139, 92, 246, 0.15);
 }
 
-.feature-icon {
+.feature-card .feature-icon {
     width: 60px;
     height: 60px;
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
@@ -387,7 +391,9 @@ nav.scrolled {
     justify-content: center;
     margin: 0 auto 24px;
     transition: transform 0.3s ease;
+    flex-shrink: 0;
 }
+
 
 .feature-card:hover .feature-icon {
     transform: scale(1.1);
@@ -409,15 +415,18 @@ nav.scrolled {
     color: var(--gray-text);
     line-height: 1.6;
     margin-bottom: 20px;
+    flex-grow: 1;
 }
 
-.feature-example {
+.feature-card .feature-example {
     background: rgba(139, 92, 246, 0.1);
     border: 1px solid rgba(139, 92, 246, 0.2);
     border-radius: 12px;
     padding: 12px 16px;
     font-size: 14px;
     color: var(--primary-color);
+    margin-top: auto;
+    flex-shrink: 0;
 }
 
 /* Use Cases Section */
@@ -938,7 +947,11 @@ footer {
     }
 
     .feature-card h3 {
-        font-size: 18px;
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 16px;
+        color: var(--light-text);
+        flex-shrink: 0;
     }
 
     .feature-card p {

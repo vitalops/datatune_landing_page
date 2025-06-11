@@ -1,5 +1,8 @@
 title: Datatune Blog
 description: Data processing insights and tutorials
+url: "https://datatune.ai"
+baseurl: ""
+markdown: kramdown
 theme: minima
 plugins:
   - jekyll-feed

@@ -3,206 +3,281 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Datatune - your backend for LLM powered data applications</title>
+    <title>Datatune - with React API Demo</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- React CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Babel for JSX transformation -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        .api-demo-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 80px 0;
+            color: white;
+        }
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .demo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        .demo-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .demo-input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        .demo-button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .demo-button:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+        .demo-button:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .demo-output {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            font-family: 'Courier New', monospace;
+            min-height: 100px;
+        }
+        .loading {
+            opacity: 0.7;
+        }
+        @media (max-width: 768px) {
+            .demo-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Floating Particles -->
-    <div class="particles" id="particles"></div>
-
-    <!-- Navigation -->
+    <!-- Your existing navigation and hero content -->
     <nav>
         <div class="nav-container">
             <div class="logo">
                 <img src="datatune-logo.png" alt="Datatune Logo" class="logo-img">
                 <span class="logo-text">Datatune</span>
             </div>
-            <button class="mobile-menu-toggle" id="mobileMenuToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <ul class="nav-tabs" id="navTabs">
+            <ul class="nav-tabs">
                 <li class="nav-tab"><a href="#home">Home</a></li>
                 <li class="nav-tab"><a href="#features">Features</a></li>
+                <li class="nav-tab"><a href="#demo">Live Demo</a></li>
                 <li class="nav-tab"><a href="https://docs.datatune.ai" target="_blank">Documentation</a></li>
                 <li class="nav-tab"><a href="https://github.com/vitalops/datatune" target="_blank">GitHub</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-content">
-            <div class="hero-badge">
-                <span>🎵 Open Source</span>
-            </div>
-            <div class="hero-logo">
-                <img src="datatune-logo.png" alt="Datatune Logo" class="hero-logo-img">
-            </div>
             <h1>Datatune</h1>
             <p class="hero-tagline">Your backend for LLM powered data applications</p>
             <div class="hero-actions">
-                <a href="https://docs.datatune.ai" target="_blank" class="btn btn-primary">Get Started</a>
+                <a href="#demo" class="btn btn-primary">Try Live Demo</a>
                 <a href="https://github.com/vitalops/datatune" target="_blank" class="btn btn-secondary">View on GitHub</a>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
+    <!-- New API Demo Section -->
+    <section class="api-demo-section" id="demo">
+        <div class="demo-container">
+            <h2 style="text-align: center; margin-bottom: 20px;">Try Datatune API</h2>
+            <p style="text-align: center; margin-bottom: 40px;">Experience the power of natural language data processing</p>
+            
+            <div id="api-demo-root"></div>
+        </div>
+    </section>
+
+    <!-- Your existing features and other sections -->
     <section class="features-section" id="features">
-        <div class="section-container">
-            <h2 class="section-title">What Can Datatune Do?</h2>
+        <!-- Your existing features content -->
+    </section>
+
+    <!-- React Components -->
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // Mock API function for demo purposes
+        const mockDatatuneAPI = async (query, data) => {
+            // Simulate API delay
+            await new Promise(resolve => setTimeout(resolve, 1500));
             
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 2L2 7L12 12L22 7L12 2Z"></path>
-                            <path d="M2 17L12 22L22 17"></path>
-                            <path d="M2 12L12 17L22 12"></path>
-                        </svg>
-                    </div>
-                    <h3>Data Transformations using natural language prompts</h3>
-                    <p>Modify your data by describing what you want to do in natural language.</p>
-                    <div class="feature-example">
-                        <em>"Extract customer location from address field"</em>
-                    </div>
-                </div>
+            // Mock responses based on query
+            if (query.toLowerCase().includes('extract') && query.toLowerCase().includes('location')) {
+                return {
+                    result: [
+                        { id: 1, name: "John Doe", address: "123 Main St, New York, NY", location: "New York, NY" },
+                        { id: 2, name: "Jane Smith", address: "456 Oak Ave, Los Angeles, CA", location: "Los Angeles, CA" },
+                        { id: 3, name: "Bob Johnson", address: "789 Pine Rd, Chicago, IL", location: "Chicago, IL" }
+                    ],
+                    message: "Successfully extracted location from address field"
+                };
+            } else if (query.toLowerCase().includes('top') && query.toLowerCase().includes('selling')) {
+                return {
+                    result: [
+                        { region: "North America", product: "DataSync Pro", sales: 15420 },
+                        { region: "Europe", product: "Analytics Suite", sales: 12350 },
+                        { region: "Asia Pacific", product: "DataSync Pro", sales: 9870 },
+                    ],
+                    message: "Top selling products by region"
+                };
+            } else {
+                return {
+                    result: "Query processed successfully! This is a demo response.",
+                    message: "Demo API response"
+                };
+            }
+        };
 
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <path d="M21 21L16.65 16.65"></path>
-                        </svg>
-                    </div>
-                    <h3>Ask Questions, Get Answers</h3>
-                    <p>Query your data conversationally. Ask questions on top of your databases and spreadsheets and retrieve accurate answers.</p>
-                    <div class="feature-example">
-                        <em>"Show me top selling products by region"</em>
-                    </div>
-                </div>
+        function DataTransformDemo() {
+            const [query, setQuery] = useState("Extract customer location from address field");
+            const [result, setResult] = useState(null);
+            const [loading, setLoading] = useState(false);
 
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 2L2 9L12 16L22 9L12 2Z"></path>
-                            <path d="M2 17L12 24L22 17M2 12L12 19L22 12"></path>
-                        </svg>
-                    </div>
-                    <h3>Process data with LLMs</h3>
-                    <p>Run llm inference on data efficiently at scale</p>
-                    <div class="feature-example">
-                        <em>"Summarize customer feedback by product category"</em>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+            const handleSubmit = async () => {
+                setLoading(true);
+                try {
+                    const response = await mockDatatuneAPI(query, {});
+                    setResult(response);
+                } catch (error) {
+                    setResult({ error: "Failed to process query" });
+                } finally {
+                    setLoading(false);
+                }
+            };
 
-    <!-- Use Cases Section -->
-    <section class="usecases-section">
-        <div class="section-container">
-            <h2 class="section-title">Perfect For</h2>
-            
-            <div class="usecases-grid">
-                <div class="usecase-card">
-                    <h3>Data Scientists and Researchers</h3>
-                    <p>Spend less time on data prep, more time on insights</p>
+            return (
+                <div className="demo-card">
+                    <h3>🔄 Data Transformation</h3>
+                    <p>Transform your data using natural language</p>
+                    <textarea
+                        className="demo-input"
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                        placeholder="Describe what you want to do with your data..."
+                        rows="3"
+                    />
+                    <button 
+                        className="demo-button"
+                        onClick={handleSubmit}
+                        disabled={loading}
+                    >
+                        {loading ? "Processing..." : "Transform Data"}
+                    </button>
+                    
+                    {result && (
+                        <div className="demo-output">
+                            <strong>Result:</strong><br/>
+                            <pre>{JSON.stringify(result, null, 2)}</pre>
+                        </div>
+                    )}
                 </div>
-                <div class="usecase-card">
-                    <h3>Business Analysts</h3>
-                    <p>Extract insights without learning complex query languages</p>
-                </div>
-                <div class="usecase-card">
-                    <h3>Product Teams</h3>
-                    <p>Quickly analyze user data and product metrics</p>
-                </div>
-                <div class="usecase-card">
-                    <h3>Researchers</h3>
-                    <p>Process and analyze large datasets effortlessly</p>
-                </div>
-            </div>
-        </div>
-    </section>
+            );
+        }
 
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="section-container">
-            <div class="cta-content">
-                <h2>Ready to transform your data workflow?</h2>
-                <p>Join thousands of teams using Datatune to work smarter with data</p>
-                <div class="cta-actions">
-                    <a href="https://docs.datatune.ai" target="_blank" class="btn btn-primary">Get Started</a>
-                    <a href="https://github.com/vitalops/datatune" target="_blank" class="btn btn-secondary">View on GitHub</a>
-                </div>
-            </div>
-        </div>
-    </section>
+        function QueryDemo() {
+            const [question, setQuestion] = useState("Show me top selling products by region");
+            const [result, setResult] = useState(null);
+            const [loading, setLoading] = useState(false);
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>Resources</h4>
-                    <a href="https://docs.datatune.ai" target="_blank">Documentation</a>
-                    <a href="https://github.com/vitalops/datatune/tree/main/examples" target="_blank">Examples</a>
-                    <a href="https://github.com/vitalops/datatune/issues" target="_blank">Support</a>
-                </div>
-                <div class="footer-section">
-                    <h4>Connect</h4>
-                    <a href="mailto:hello@vitalops.ai">hello@vitalops.ai</a>
-                    <a href="https://vitalops.ai" target="_blank">VitalOps</a>
-                    <a href="https://github.com/vitalops/datatune" target="_blank">GitHub</a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Datatune by VitalOps. MIT License.</p>
-            </div>
-        </div>
-    </footer>
+            const handleSubmit = async () => {
+                setLoading(true);
+                try {
+                    const response = await mockDatatuneAPI(question, {});
+                    setResult(response);
+                } catch (error) {
+                    setResult({ error: "Failed to process question" });
+                } finally {
+                    setLoading(false);
+                }
+            };
 
+            return (
+                <div className="demo-card">
+                    <h3>❓ Ask Questions</h3>
+                    <p>Query your data conversationally</p>
+                    <input
+                        className="demo-input"
+                        value={question}
+                        onChange={(e) => setQuestion(e.target.value)}
+                        placeholder="Ask a question about your data..."
+                    />
+                    <button 
+                        className="demo-button"
+                        onClick={handleSubmit}
+                        disabled={loading}
+                    >
+                        {loading ? "Analyzing..." : "Ask Question"}
+                    </button>
+                    
+                    {result && (
+                        <div className="demo-output">
+                            <strong>Answer:</strong><br/>
+                            <pre>{JSON.stringify(result, null, 2)}</pre>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        function APIDemoContainer() {
+            return (
+                <div className="demo-grid">
+                    <DataTransformDemo />
+                    <QueryDemo />
+                </div>
+            );
+        }
+
+        // Render the React components
+        ReactDOM.render(<APIDemoContainer />, document.getElementById('api-demo-root'));
+    </script>
+
+    <!-- Your existing JavaScript -->
     <script>
-        // Mobile menu toggle
+        // Your existing mobile menu and particles code
         const mobileMenuToggle = document.getElementById('mobileMenuToggle');
         const navTabs = document.getElementById('navTabs');
 
-        mobileMenuToggle.addEventListener('click', () => {
-            navTabs.classList.toggle('show');
-            mobileMenuToggle.classList.toggle('active');
-        });
-
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('.nav-tab a').forEach(link => {
-            link.addEventListener('click', () => {
-                navTabs.classList.remove('show');
-                mobileMenuToggle.classList.remove('active');
+        if (mobileMenuToggle) {
+            mobileMenuToggle.addEventListener('click', () => {
+                navTabs.classList.toggle('show');
+                mobileMenuToggle.classList.toggle('active');
             });
-        });
-
-        // Create floating particles
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = window.innerWidth <= 768 ? 8 : 15; // Fewer particles on mobile
-
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                
-                const size = Math.random() * 4 + 2;
-                particle.style.width = size + 'px';
-                particle.style.height = size + 'px';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 20 + 's';
-                particle.style.animationDuration = (Math.random() * 20 + 20) + 's';
-                
-                particlesContainer.appendChild(particle);
-            }
         }
 
-        // Smooth scrolling
+        // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -214,26 +289,6 @@
                     });
                 }
             });
-        });
-
-        // Nav background on scroll
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 50) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        });
-
-        // Initialize
-        createParticles();
-
-        // Recreate particles on resize
-        window.addEventListener('resize', () => {
-            const particlesContainer = document.getElementById('particles');
-            particlesContainer.innerHTML = '';
-            createParticles();
         });
     </script>
 </body>

@@ -1,0 +1,5 @@
+title: Datatune Blog
+description: Data processing insights and tutorials
+theme: minima
+plugins:
+  - jekyll-feed

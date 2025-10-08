@@ -3,190 +3,1285 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Datatune - your backend for LLM powered data applications</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Datatune - Transform Data with Natural Language</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #8b5cf6;
+            --secondary-color: #ec4899;
+            --accent-color: #06b6d4;
+            --dark-bg: #0a050f;
+            --light-text: #ffffff;
+            --gray-text: #a0a0a0;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --hover-bg: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--dark-bg);
+            color: var(--light-text);
+            overflow-x: hidden;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(139, 92, 246, 0.06) 0%, transparent 50%);
+            z-index: -1;
+            animation: subtleGlow 15s ease-in-out infinite;
+        }
+
+        @keyframes subtleGlow {
+            0%, 100% { 
+                opacity: 0.8;
+                filter: brightness(1);
+            }
+            50% { 
+                opacity: 1;
+                filter: brightness(1.1);
+            }
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(139, 92, 246, 0.4);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            from {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            to {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .hero {
+            text-align: center;
+            padding: 80px 20px 60px;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--light-text) 0%, var(--primary-color) 50%, var(--secondary-color) 100%);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientFlow 8s ease-in-out infinite;
+        }
+
+        @keyframes gradientFlow {
+            0%, 100% { 
+                background-position: 0% 50%; 
+            }
+            50% { 
+                background-position: 100% 50%; 
+            }
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            color: var(--gray-text);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .hero .badges {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .badge {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--primary-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .intro-section {
+            background: rgba(139, 92, 246, 0.05);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 20px;
+            padding: 60px 40px;
+            margin-bottom: 50px;
+            backdrop-filter: blur(10px);
+        }
+
+        .intro-section h2 {
+            font-size: 2.5rem;
+            color: var(--light-text);
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .intro-section > p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--gray-text);
+            margin-bottom: 20px;
+            text-align: center;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .intro-cta {
+            text-align: center;
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin-top: 40px;
+        }
+
+        .demo-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px 40px 20px 40px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+        }
+
+        .demo-header {
+            margin-bottom: 30px;
+        }
+
+        .demo-header h2 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .demo-header p {
+            color: var(--gray-text);
+            font-size: 1.1rem;
+        }
+
+        .use-case-intro {
+            background: rgba(139, 92, 246, 0.08);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            padding: 20px 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+
+        .use-case-intro p {
+            margin: 0;
+            color: var(--gray-text);
+            line-height: 1.6;
+        }
+
+        .use-case-intro strong {
+            color: var(--primary-color);
+        }
+
+        .example-tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 0;
+            flex-wrap: wrap;
+        }
+
+        .example-tab {
+            padding: 12px 24px;
+            background: rgba(139, 92, 246, 0.05);
+            border: 2px solid rgba(139, 92, 246, 0.2);
+            border-bottom: 2px solid rgba(139, 92, 246, 0.2);
+            border-radius: 10px 10px 0 0;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            font-weight: 500;
+            color: var(--gray-text);
+            position: relative;
+            bottom: -2px;
+        }
+
+        .example-tab:hover:not(.active) {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--primary-color);
+        }
+
+        .example-tab.active {
+            background: var(--card-bg);
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            border-bottom: 2px solid var(--card-bg);
+            font-weight: 600;
+            z-index: 1;
+        }
+
+        .example-content {
+            display: none;
+            border: 2px solid var(--primary-color);
+            border-radius: 0 0 15px 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            background: var(--card-bg);
+            position: relative;
+            top: -2px;
+        }
+
+        .example-content.active {
+            display: block;
+        }
+
+        .example-description {
+            background: rgba(236, 72, 153, 0.08);
+            border: 1px solid rgba(236, 72, 153, 0.2);
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            color: var(--gray-text);
+            line-height: 1.6;
+        }
+
+        .example-description strong {
+            color: var(--secondary-color);
+        }
+
+        .prompt-selector {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .prompt-btn {
+            padding: 12px 24px;
+            border: 2px solid var(--primary-color);
+            background: rgba(139, 92, 246, 0.05);
+            color: var(--light-text);
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            font-weight: 500;
+            text-align: left;
+        }
+
+        .prompt-btn:hover:not(.reset-btn) {
+            background: rgba(139, 92, 246, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3);
+        }
+
+        .prompt-btn.executing {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            pointer-events: none;
+        }
+
+        .reset-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .reset-container.hidden {
+            display: none;
+        }
+
+        .reset-btn {
+            background: rgba(236, 72, 153, 0.1);
+            color: var(--secondary-color);
+            padding: 8px 20px;
+            font-size: 0.85rem;
+            border: 2px solid var(--secondary-color);
+        }
+
+        .reset-btn:hover {
+            background: var(--secondary-color);
+            color: white;
+            transform: none;
+            box-shadow: 0 5px 15px rgba(236, 72, 153, 0.3);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        th {
+            background: rgba(139, 92, 246, 0.3);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--gray-text);
+        }
+
+        tr:hover {
+            background: rgba(139, 92, 246, 0.05);
+        }
+
+        .new-column {
+            animation: slideIn 0.5s ease-out;
+            background: rgba(139, 92, 246, 0.15) !important;
+            color: var(--light-text) !important;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .loading {
+            display: none;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            color: #00ff00;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .terminal-line {
+            margin: 4px 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .terminal-prompt {
+            color: var(--primary-color);
+        }
+
+        .terminal-spinner {
+            display: inline-block;
+            color: #00ff00;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(139, 92, 246, 0.3);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.2);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .feature-card p {
+            color: var(--gray-text);
+        }
+
+        .cta {
+            text-align: center;
+            padding: 60px 20px;
+            color: white;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, var(--light-text), var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cta-btn {
+            padding: 16px 40px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 0 10px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+        }
+    </style>
 </head>
 <body>
     <!-- Floating Particles -->
     <div class="particles" id="particles"></div>
 
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <div class="logo">
-                <img src="datatune-logo.png" alt="Datatune Logo" class="logo-img">
-                <span class="logo-text">Datatune</span>
-            </div>
-            <button class="mobile-menu-toggle" id="mobileMenuToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <ul class="nav-tabs" id="navTabs">
-                <li class="nav-tab"><a href="#home">Home</a></li>
-                <li class="nav-tab"><a href="#features">Features</a></li>
-                <li class="nav-tab"><a href="https://blog.datatune.ai" target="_blank">Blog</a></li>
-                <li class="nav-tab"><a href="https://docs.datatune.ai" target="_blank">Documentation</a></li>
-                <li class="nav-tab"><a href="https://github.com/vitalops/datatune" target="_blank">GitHub</a></li>
-            </ul>
+    <div class="hero">
+        <img src="datatune-logo.png" alt="Datatune Logo" class="logo-img">
+        <h1>Datatune</h1>
+        <p class="subtitle">Transform your data with natural language using LLMs</p>
+        <div class="badges">
+            <span class="badge">🚀 Fast & Scalable</span>
+            <span class="badge">🤖 Multiple LLM Support</span>
+            <span class="badge">📦 Open Source</span>
+            <!-- <span class="badge">⚡ Dask Powered</span> -->
         </div>
-    </nav>
+    </div>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <div class="hero-badge">
-                <span>🎵 Open Source</span>
-            </div>
-            <div class="hero-logo">
-                <img src="datatune-logo.png" alt="Datatune Logo" class="hero-logo-img">
-            </div>
-            <h1>Datatune</h1>
-            <p class="hero-tagline">Your backend for LLM powered data applications</p>
-            <div class="hero-actions">
-                <a href="https://docs.datatune.ai" target="_blank" class="btn btn-primary">Get Started</a>
-                <a href="https://github.com/vitalops/datatune" target="_blank" class="btn btn-secondary">View on GitHub</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features-section" id="features">
-        <div class="section-container">
-            <h2 class="section-title">What Can Datatune Do?</h2>
+    <div class="container">
+        <div class="intro-section">
+            <h2>What is Datatune?</h2>
+            <p>Datatune is a Python library that lets you transform tabular data using natural language prompts powered by Large Language Models. Unlike traditional tools that rely on schema-based queries, Datatune gives the LLM access to your actual data—enabling intelligent, context-aware transformations at the row level that go far beyond what SQL or pandas can express.</p>
             
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 2L2 7L12 12L22 7L12 2Z"></path>
-                            <path d="M2 17L12 22L22 17"></path>
-                            <path d="M2 12L12 17L22 12"></path>
-                        </svg>
-                    </div>
-                    <h3>Data Transformations using natural language prompts</h3>
-                    <p>Modify your data by describing what you want to do in natural language.</p>
-                    <div class="feature-example">
-                        <em>"Extract customer location from address field"</em>
-                    </div>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <path d="M21 21L16.65 16.65"></path>
-                        </svg>
-                    </div>
-                    <h3>Ask Questions, Get Answers</h3>
-                    <p>Query your data conversationally. Ask questions on top of your databases and spreadsheets and retrieve accurate answers.</p>
-                    <div class="feature-example">
-                        <em>"Show me top selling products by region"</em>
-                    </div>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 2L2 9L12 16L22 9L12 2Z"></path>
-                            <path d="M2 17L12 24L22 17M2 12L12 19L22 12"></path>
-                        </svg>
-                    </div>
-                    <h3>Process data with LLMs</h3>
-                    <p>Run llm inference on data efficiently at scale</p>
-                    <div class="feature-example">
-                        <em>"Summarize customer feedback by product category"</em>
-                    </div>
-                </div>
-            </div>
+            <p class="intro-cta">Try out the interactive examples below to see Datatune in action!</p>
         </div>
-    </section>
 
-    <!-- Use Cases Section -->
-    <section class="usecases-section">
-        <div class="section-container">
-            <h2 class="section-title">Perfect For</h2>
+        <!-- Demo 1: Classification -->
+        <div class="demo-section">
+            <div class="demo-header">
+                <h2>🏷️ Smart Classification & Extraction</h2>
+                <p>Extract and categorize information from unstructured data</p>
+            </div>
             
-            <div class="usecases-grid">
-                <div class="usecase-card">
-                    <h3>Data Scientists and Researchers</h3>
-                    <p>Spend less time on data prep, more time on insights</p>
-                </div>
-                <div class="usecase-card">
-                    <h3>Business Analysts</h3>
-                    <p>Extract insights without learning complex query languages</p>
-                </div>
-                <div class="usecase-card">
-                    <h3>Product Teams</h3>
-                    <p>Quickly analyze user data and product metrics</p>
-                </div>
-                <div class="usecase-card">
-                    <h3>Researchers</h3>
-                    <p>Process and analyze large datasets effortlessly</p>
-                </div>
+            <div class="use-case-intro">
+                <p><strong>Use Case:</strong> Map operations let you add new columns to your dataset by extracting, classifying, or transforming information from existing columns. This is perfect for enriching your data with insights that would be tedious to code manually—like categorizing products, analyzing sentiment, or extracting structured information from text.</p>
             </div>
-        </div>
-    </section>
+            
+            <div class="example-tabs">
+                <div class="example-tab active" data-example="classify-products">Products</div>
+                <div class="example-tab" data-example="classify-emails">Customer Support</div>
+                <div class="example-tab" data-example="classify-transactions">Financial Data</div>
+            </div>
 
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="section-container">
-            <div class="cta-content">
-                <h2>Ready to transform your data workflow?</h2>
-                <p>Join thousands of teams using Datatune to work smarter with data</p>
-                <div class="cta-actions">
-                    <a href="https://docs.datatune.ai" target="_blank" class="btn btn-primary">Get Started</a>
-                    <a href="https://github.com/vitalops/datatune" target="_blank" class="btn btn-secondary">View on GitHub</a>
+            <!-- Example 1: Products -->
+            <div class="example-content active" id="classify-products">
+                <div class="example-description">
+                    <strong>Scenario:</strong> You have a product catalog with names and descriptions, but no organized categories. Use Datatune to automatically classify products and extract metadata that helps with search, filtering, and analytics.
                 </div>
+                <div class="prompt-selector">
+                    <button class="prompt-btn" data-demo="classify-products" data-prompt="classify">
+                        Add 2 columns 'Category' and 'Subcategory' extracted from product name and description
+                    </button>
+                    <button class="prompt-btn" data-demo="classify-products" data-prompt="sentiment">
+                        Add columns 'Sentiment' (Positive/Neutral/Negative) and 'Confidence' (High/Medium/Low) based on description tone
+                    </button>
+                    <button class="prompt-btn" data-demo="classify-products" data-prompt="analysis">
+                        Add 'Target_Audience' (Kids/Teens/Adults/Seniors) and 'Price_Category' (Budget/Mid-Range/Premium) based on name, description, and price
+                    </button>
+                </div>
+                <div class="reset-container hidden" id="reset-classify-products">
+                    <button class="prompt-btn reset-btn" onclick="resetDemo('classify-products')">↺ Reset</button>
+                </div>
+                <div class="loading" id="loading-classify-products">
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span>import dask.dataframe as dd</div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span>import datatune as dt</div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span>llm = dt.llm.OpenAI('gpt-3.5-turbo')</div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span><span id="code-classify-products-1"></span></div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span><span id="code-classify-products-2"></span></div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span><span id="code-classify-products-3"></span></div>
+                    <div class="terminal-line" id="spinner-classify-products"><span id="spinner-prompt-classify-products"></span><span class="terminal-spinner"></span></div>
+                </div>
+                <div class="table-container" id="table-classify-products"></div>
             </div>
-        </div>
-    </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>Resources</h4>
-                    <a href="https://docs.datatune.ai" target="_blank">Documentation</a>
-                    <a href="https://github.com/vitalops/datatune/tree/main/examples" target="_blank">Examples</a>
-                    <a href="https://github.com/vitalops/datatune/issues" target="_blank">Support</a>
+            <!-- Example 2: Emails -->
+            <div class="example-content" id="classify-emails">
+                <div class="example-description">
+                    <strong>Scenario:</strong> Customer support emails flood your inbox daily. Use Datatune to automatically route tickets to the right department, prioritize urgent issues, and analyze customer sentiment—all from the subject line and message content.
                 </div>
-                <div class="footer-section">
-                    <h4>Connect</h4>
-                    <a href="mailto:hello@vitalops.ai">hello@vitalops.ai</a>
-                    <a href="https://vitalops.ai" target="_blank">VitalOps</a>
-                    <a href="https://github.com/vitalops/datatune" target="_blank">GitHub</a>
+                <div class="prompt-selector">
+                    <button class="prompt-btn" data-demo="classify-emails" data-prompt="classify">
+                        Add columns 'Department' (Technical/Billing/Sales/General) and 'Urgency' (Low/Medium/High/Critical) based on subject and message
+                    </button>
+                    <button class="prompt-btn" data-demo="classify-emails" data-prompt="sentiment">
+                        Add 'Customer_Sentiment' (Happy/Neutral/Frustrated/Angry) and 'Issue_Type' (Bug/Feature Request/Question/Complaint) from subject and message
+                    </button>
+                    <button class="prompt-btn" data-demo="classify-emails" data-prompt="response">
+                        Add 'Estimated_Response_Time' and 'Requires_Manager' (Yes/No) based on urgency, department, and message content
+                    </button>
                 </div>
+                <div class="reset-container hidden" id="reset-classify-emails">
+                    <button class="prompt-btn reset-btn" onclick="resetDemo('classify-emails')">↺ Reset</button>
+                </div>
+                <div class="loading" id="loading-classify-emails">
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span>import dask.dataframe as dd</div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span>import datatune as dt</div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span>llm = dt.llm.OpenAI('gpt-3.5-turbo')</div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span><span id="code-classify-emails-1"></span></div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span><span id="code-classify-emails-2"></span></div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span><span id="code-classify-emails-3"></span></div>
+                    <div class="terminal-line" id="spinner-classify-emails"><span id="spinner-prompt-classify-emails"></span><span class="terminal-spinner"></span></div>
+                </div>
+                <div class="table-container" id="table-classify-emails"></div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Datatune by VitalOps. MIT License.</p>
+
+            <!-- Example 3: Transactions -->
+            <div class="example-content" id="classify-transactions">
+                <div class="example-description">
+                    <strong>Scenario:</strong> Bank transactions come with merchant names and descriptions, but no built-in categorization. Use Datatune to automatically classify expenses, detect recurring payments, and identify which purchases are essential versus discretionary.
+                </div>
+                <div class="prompt-selector">
+                    <button class="prompt-btn" data-demo="classify-transactions" data-prompt="classify">
+                        Add 'Category' (Food/Transport/Entertainment/Shopping/Bills/Other) and 'Subcategory' extracted from merchant name and description
+                    </button>
+                    <button class="prompt-btn" data-demo="classify-transactions" data-prompt="analysis">
+                        Add 'Is_Recurring' (Yes/No/Maybe), 'Payment_Type' (Subscription/One-time/Installment), and 'Necessity' (Essential/Discretionary) based on merchant, amount, and description patterns
+                    </button>
+                    <button class="prompt-btn" data-demo="classify-transactions" data-prompt="risk">
+                        Add 'Risk_Level' (Low/Medium/High) and 'Needs_Review' (Yes/No) based on amount, merchant, and transaction patterns
+                    </button>
+                </div>
+                <div class="reset-container hidden" id="reset-classify-transactions">
+                    <button class="prompt-btn reset-btn" onclick="resetDemo('classify-transactions')">↺ Reset</button>
+                </div>
+                <div class="loading" id="loading-classify-transactions">
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span>import dask.dataframe as dd</div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span>import datatune as dt</div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span>llm = dt.llm.OpenAI('gpt-3.5-turbo')</div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span><span id="code-classify-transactions-1"></span></div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span><span id="code-classify-transactions-2"></span></div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span><span id="code-classify-transactions-3"></span></div>
+                    <div class="terminal-line" id="spinner-classify-transactions"><span id="spinner-prompt-classify-transactions"></span><span class="terminal-spinner"></span></div>
+                </div>
+                <div class="table-container" id="table-classify-transactions"></div>
             </div>
         </div>
-    </footer>
+
+        <!-- Demo 2: Filtering -->
+        <div class="demo-section">
+            <div class="demo-header">
+                <h2>🔍 Intelligent Filtering</h2>
+                <p>Filter rows based on semantic criteria across multiple columns</p>
+            </div>
+
+            <div class="use-case-intro">
+                <p><strong>Use Case:</strong> Filter operations let you remove rows based on complex, semantic criteria that would be difficult to express with traditional code. Instead of writing nested if-statements or regex patterns, describe what you want to keep or remove in natural language. Perfect for data cleanup, quality control, and targeted analysis.</p>
+            </div>
+
+            <div class="example-tabs">
+                <div class="example-tab active" data-example="filter-products">Products</div>
+                <div class="example-tab" data-example="filter-reviews">Reviews</div>
+                <div class="example-tab" data-example="filter-employees">Employee Data</div>
+            </div>
+
+            <!-- Example 1: Products -->
+            <div class="example-content active" id="filter-products">
+                <div class="example-description">
+                    <strong>Scenario:</strong> You need to create targeted product lists based on semantic understanding rather than simple filters—products that promote health and wellness, items ideal for remote work setups, or thoughtful gifts under $50. These require understanding product purpose and context, not just matching exact values.
+                </div>
+                <div class="prompt-selector">
+                    <button class="prompt-btn" data-demo="filter-products" data-prompt="wellness">
+                        Keep products that promote health, wellness, or ergonomic benefits based on their description
+                    </button>
+                    <button class="prompt-btn" data-demo="filter-products" data-prompt="remote">
+                        Filter for products that would improve a remote work or home office setup
+                    </button>
+                    <button class="prompt-btn" data-demo="filter-products" data-prompt="gift">
+                        Keep items under $50 that would make thoughtful, personal gifts for wellness-minded friends
+                    </button>
+                </div>
+                <div class="reset-container hidden" id="reset-filter-products">
+                    <button class="prompt-btn reset-btn" onclick="resetDemo('filter-products')">↺ Reset</button>
+                </div>
+                <div class="loading" id="loading-filter-products">
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span>import dask.dataframe as dd</div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span>import datatune as dt</div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span>llm = dt.llm.OpenAI('gpt-3.5-turbo')</div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span><span id="code-filter-products-1"></span></div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span><span id="code-filter-products-2"></span></div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span><span id="code-filter-products-3"></span></div>
+                    <div class="terminal-line" id="spinner-filter-products"><span id="spinner-prompt-filter-products"></span><span class="terminal-spinner"></span></div>
+                </div>
+                <div class="table-container" id="table-filter-products"></div>
+            </div>
+
+            <!-- Example 2: Reviews -->
+            <div class="example-content" id="filter-reviews">
+                <div class="example-description">
+                    <strong>Scenario:</strong> You have thousands of product reviews but need to find specific types—positive testimonials for marketing, detailed feedback from verified buyers, or recent negative reviews that mention bugs. Semantic filtering makes this easy.
+                </div>
+                <div class="prompt-selector">
+                    <button class="prompt-btn" data-demo="filter-reviews" data-prompt="positive">
+                        Keep only reviews with positive sentiment and rating 4 or above
+                    </button>
+                    <button class="prompt-btn" data-demo="filter-reviews" data-prompt="detailed">
+                        Filter to keep reviews that are detailed (more than 20 words) and from verified purchasers
+                    </button>
+                    <button class="prompt-btn" data-demo="filter-reviews" data-prompt="actionable">
+                        Keep reviews that mention specific issues or bugs, have rating below 3, and are from recent purchases (less than 30 days)
+                    </button>
+                </div>
+                <div class="reset-container hidden" id="reset-filter-reviews">
+                    <button class="prompt-btn reset-btn" onclick="resetDemo('filter-reviews')">↺ Reset</button>
+                </div>
+                <div class="loading" id="loading-filter-reviews">
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span>import dask.dataframe as dd</div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span>import datatune as dt</div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span>llm = dt.llm.OpenAI('gpt-3.5-turbo')</div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span><span id="code-filter-reviews-1"></span></div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span><span id="code-filter-reviews-2"></span></div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span><span id="code-filter-reviews-3"></span></div>
+                    <div class="terminal-line" id="spinner-filter-reviews"><span id="spinner-prompt-filter-reviews"></span><span class="terminal-spinner"></span></div>
+                </div>
+                <div class="table-container" id="table-filter-reviews"></div>
+            </div>
+
+            <!-- Example 3: Employees -->
+            <div class="example-content" id="filter-employees">
+                <div class="example-description">
+                    <strong>Scenario:</strong> HR needs to identify employees for different initiatives—senior engineers for mentorship programs, remote tech workers for team building, or high-performers ready for promotion. Filter based on multiple criteria without complex joins.
+                </div>
+                <div class="prompt-selector">
+                    <button class="prompt-btn" data-demo="filter-employees" data-prompt="senior">
+                        Keep employees with 'Senior' or 'Lead' in their title and experience greater than 5 years
+                    </button>
+                    <button class="prompt-btn" data-demo="filter-employees" data-prompt="tech">
+                        Filter to keep employees in technical roles (Engineering, Data, DevOps) working in San Francisco or Remote
+                    </button>
+                    <button class="prompt-btn" data-demo="filter-employees" data-prompt="promotion">
+                        Keep employees with high performance rating (4+), more than 3 years experience, and currently in non-senior positions
+                    </button>
+                </div>
+                <div class="reset-container hidden" id="reset-filter-employees">
+                    <button class="prompt-btn reset-btn" onclick="resetDemo('filter-employees')">↺ Reset</button>
+                </div>
+                <div class="loading" id="loading-filter-employees">
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span>import dask.dataframe as dd</div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span>import datatune as dt</div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span>llm = dt.llm.OpenAI('gpt-3.5-turbo')</div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span><span id="code-filter-employees-1"></span></div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span><span id="code-filter-employees-2"></span></div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span><span id="code-filter-employees-3"></span></div>
+                    <div class="terminal-line" id="spinner-filter-employees"><span id="spinner-prompt-filter-employees"></span><span class="terminal-spinner"></span></div>
+                </div>
+                <div class="table-container" id="table-filter-employees"></div>
+            </div>
+        </div>
+
+        <!-- Demo 3: Anonymization -->
+        <div class="demo-section">
+            <div class="demo-header">
+                <h2>🕶️ Data Anonymization & Privacy</h2>
+                <p>Protect sensitive information while preserving data utility</p>
+            </div>
+
+            <div class="use-case-intro">
+                <p><strong>Use Case:</strong> When working with sensitive data, you need to protect privacy while maintaining data utility for analysis. Datatune can intelligently redact PII (Personally Identifiable Information), PHI (Protected Health Information), or other sensitive data based on context—much smarter than simple find-and-replace operations.</p>
+            </div>
+
+            <div class="example-tabs">
+                <div class="example-tab active" data-example="anon-customers">Customer Data</div>
+                <div class="example-tab" data-example="anon-medical">Medical Records</div>
+                <div class="example-tab" data-example="anon-hr">HR Documents</div>
+            </div>
+
+            <!-- Example 1: Customers -->
+            <div class="example-content active" id="anon-customers">
+                <div class="example-description">
+                    <strong>Scenario:</strong> You need to share customer data with a third-party analytics team, but must protect personal information. Use Datatune to apply different levels of anonymization—full anonymization for maximum privacy, or partial anonymization that preserves some context.
+                </div>
+                <div class="prompt-selector">
+                    <button class="prompt-btn" data-demo="anon-customers" data-prompt="anonymize">
+                        Replace all personally identifiable information (names, emails, phone numbers) with 'XX'
+                    </button>
+                    <button class="prompt-btn" data-demo="anon-customers" data-prompt="redact">
+                        Redact only contact information (email and phone) while keeping customer names visible
+                    </button>
+                    <button class="prompt-btn" data-demo="anon-customers" data-prompt="partial">
+                        Anonymize email domains and last 4 digits of phone, but keep first names and area codes visible
+                    </button>
+                </div>
+                <div class="reset-container hidden" id="reset-anon-customers">
+                    <button class="prompt-btn reset-btn" onclick="resetDemo('anon-customers')">↺ Reset</button>
+                </div>
+                <div class="loading" id="loading-anon-customers">
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span>import dask.dataframe as dd</div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span>import datatune as dt</div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span>llm = dt.llm.OpenAI('gpt-3.5-turbo')</div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span><span id="code-anon-customers-1"></span></div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span><span id="code-anon-customers-2"></span></div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span><span id="code-anon-customers-3"></span></div>
+                    <div class="terminal-line" id="spinner-anon-customers"><span id="spinner-prompt-anon-customers"></span><span class="terminal-spinner"></span></div>
+                </div>
+                <div class="table-container" id="table-anon-customers"></div>
+            </div>
+
+            <!-- Example 2: Medical -->
+            <div class="example-content" id="anon-medical">
+                <div class="example-description">
+                    <strong>Scenario:</strong> Medical researchers need patient data for studies, but HIPAA compliance requires removing all PHI. Use Datatune to create research-safe datasets that preserve diagnostic information while protecting patient identities and ensuring compliance.
+                </div>
+                <div class="prompt-selector">
+                    <button class="prompt-btn" data-demo="anon-medical" data-prompt="full">
+                        Replace all PHI (patient names, dates of birth, MRN numbers, addresses) with anonymized codes in notes
+                    </button>
+                    <button class="prompt-btn" data-demo="anon-medical" data-prompt="partial">
+                        Keep diagnosis visible, but convert dob to age ranges, anonymize patient and MRN, and remove addresses from notes
+                    </button>
+                    <button class="prompt-btn" data-demo="anon-medical" data-prompt="research">
+                        Keep diagnosis visible, convert dob to age ranges, replace patient names with study IDs, anonymize MRN, and remove identifying information from notes
+                    </button>
+                </div>
+                <div class="reset-container hidden" id="reset-anon-medical">
+                    <button class="prompt-btn reset-btn" onclick="resetDemo('anon-medical')">↺ Reset</button>
+                </div>
+                <div class="loading" id="loading-anon-medical">
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span>import dask.dataframe as dd</div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span>import datatune as dt</div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span>llm = dt.llm.OpenAI('gpt-3.5-turbo')</div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span><span id="code-anon-medical-1"></span></div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span><span id="code-anon-medical-2"></span></div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span><span id="code-anon-medical-3"></span></div>
+                    <div class="terminal-line" id="spinner-anon-medical"><span id="spinner-prompt-anon-medical"></span><span class="terminal-spinner"></span></div>
+                </div>
+                <div class="table-container" id="table-anon-medical"></div>
+            </div>
+
+            <!-- Example 3: HR -->
+            <div class="example-content" id="anon-hr">
+                <div class="example-description">
+                    <strong>Scenario:</strong> HR analytics teams need to analyze salary trends and performance patterns, but must protect employee privacy. Use Datatune to anonymize personal identifiers while keeping role and performance data intact for meaningful analysis.
+                </div>
+                <div class="prompt-selector">
+                    <button class="prompt-btn" data-demo="anon-hr" data-prompt="full">
+                        Anonymize employee names, SSN, and addresses while keeping title, dept, salary, and cleaning personal names from feedback
+                    </button>
+                    <button class="prompt-btn" data-demo="anon-hr" data-prompt="salary">
+                        Replace employee names with IDs, anonymize SSN, convert exact salary to salary bands, and simplify addresses to city/state only
+                    </button>
+                    <button class="prompt-btn" data-demo="anon-hr" data-prompt="feedback">
+                        Keep title and dept visible, but anonymize employee names, SSN, and remove specific names of people and projects from feedback
+                    </button>
+                </div>
+                <div class="reset-container hidden" id="reset-anon-hr">
+                    <button class="prompt-btn reset-btn" onclick="resetDemo('anon-hr')">↺ Reset</button>
+                </div>
+                <div class="loading" id="loading-anon-hr">
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span>import dask.dataframe as dd</div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span>import datatune as dt</div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span>llm = dt.llm.OpenAI('gpt-3.5-turbo')</div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span><span id="code-anon-hr-1"></span></div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span><span id="code-anon-hr-2"></span></div>
+                    <div class="terminal-line"><span class="terminal-prompt">>>> </span><span id="code-anon-hr-3"></span></div>
+                    <div class="terminal-line" id="spinner-anon-hr"><span id="spinner-prompt-anon-hr"></span><span class="terminal-spinner"></span></div>
+                </div>
+                <div class="table-container" id="table-anon-hr"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hero">
+        <div class="features">
+            <div class="feature-card">
+                <h3>🗺️ Map</h3>
+                <p>Transform and extract data with natural language prompts</p>
+            </div>
+            <div class="feature-card">
+                <h3>🔍 Filter</h3>
+                <p>Remove rows based on semantic criteria</p>
+            </div>
+            <div class="feature-card">
+                <h3>🤖 Agents</h3>
+                <p>Let AI plan and execute complex transformations</p>
+            </div>
+            <div class="feature-card">
+                <h3>⚡ Scalable</h3>
+                <p>Process datasets larger than LLM context windows</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="cta">
+        <h2>Ready to Transform Your Data?</h2>
+        <a href="https://github.com/vitalops/datatune" target="_blank" class="cta-btn">⭐ Star on GitHub</a>
+        <a href="https://docs.datatune.ai" target="_blank" class="cta-btn">📚 Read Docs</a>
+    </div>
 
     <script>
-        // Mobile menu toggle
-        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-        const navTabs = document.getElementById('navTabs');
+        const demoData = {
+            'classify-products': {
+                initial: [
+                    {id: 1001, name: "Wireless Mouse", price: 25.99, description: "Ergonomic wireless mouse with 2.4GHz connectivity"},
+                    {id: 1002, name: "Office Chair", price: 89.99, description: "Comfortable swivel office chair with lumbar support"},
+                    {id: 1003, name: "Coffee Mug", price: 9.49, description: "Ceramic mug, 12oz, microwave safe"},
+                    {id: 1004, name: "LED Monitor 24\"", price: 149.99, description: "24-inch Full HD LED monitor with HDMI"},
+                    {id: 1005, name: "Notebook Pack", price: 6.99, description: "Pack of 3 ruled notebooks, 100 pages each"}
+                ],
+                classify: [
+                    {id: 1001, name: "Wireless Mouse", price: 25.99, description: "Ergonomic wireless mouse...", category: "Electronics", subcategory: "Computer Accessories"},
+                    {id: 1002, name: "Office Chair", price: 89.99, description: "Comfortable swivel office chair...", category: "Furniture", subcategory: "Office Furniture"},
+                    {id: 1003, name: "Coffee Mug", price: 9.49, description: "Ceramic mug, 12oz...", category: "Home & Kitchen", subcategory: "Drinkware"},
+                    {id: 1004, name: "LED Monitor 24\"", price: 149.99, description: "24-inch Full HD LED monitor...", category: "Electronics", subcategory: "Monitors"},
+                    {id: 1005, name: "Notebook Pack", price: 6.99, description: "Pack of 3 ruled notebooks...", category: "Office Supplies", subcategory: "Stationery"}
+                ],
+                sentiment: [
+                    {id: 1001, name: "Wireless Mouse", price: 25.99, description: "Ergonomic wireless mouse...", sentiment: "Positive", confidence: "High"},
+                    {id: 1002, name: "Office Chair", price: 89.99, description: "Comfortable swivel office chair...", sentiment: "Positive", confidence: "High"},
+                    {id: 1003, name: "Coffee Mug", price: 9.49, description: "Ceramic mug, 12oz...", sentiment: "Neutral", confidence: "Medium"},
+                    {id: 1004, name: "LED Monitor 24\"", price: 149.99, description: "24-inch Full HD LED monitor...", sentiment: "Positive", confidence: "High"},
+                    {id: 1005, name: "Notebook Pack", price: 6.99, description: "Pack of 3 ruled notebooks...", sentiment: "Neutral", confidence: "Medium"}
+                ],
+                analysis: [
+                    {id: 1001, name: "Wireless Mouse", price: 25.99, description: "Ergonomic wireless mouse...", target_audience: "Adults", price_category: "Budget"},
+                    {id: 1002, name: "Office Chair", price: 89.99, description: "Comfortable swivel office chair...", target_audience: "Adults", price_category: "Mid-Range"},
+                    {id: 1003, name: "Coffee Mug", price: 9.49, description: "Ceramic mug, 12oz...", target_audience: "Adults", price_category: "Budget"},
+                    {id: 1004, name: "LED Monitor 24\"", price: 149.99, description: "24-inch Full HD LED monitor...", target_audience: "Adults", price_category: "Premium"},
+                    {id: 1005, name: "Notebook Pack", price: 6.99, description: "Pack of 3 ruled notebooks...", target_audience: "Teens", price_category: "Budget"}
+                ]
+            },
+            'classify-emails': {
+                initial: [
+                    {id: 4001, subject: "Can't login on mobile app", message: "App crashes every time I try to login. Need urgent help!"},
+                    {id: 4002, subject: "Question about invoice", message: "I received invoice #12345 but the amount seems incorrect"},
+                    {id: 4003, subject: "Server completely down", message: "Our entire production server is down. Critical issue!"},
+                    {id: 4004, subject: "Feature request", message: "Would love to see dark mode in the next update"},
+                    {id: 4005, subject: "Upgrade to enterprise plan", message: "Interested in upgrading our team to enterprise tier"}
+                ],
+                classify: [
+                    {id: 4001, subject: "Can't login on mobile app", message: "App crashes every time...", department: "Technical", urgency: "High"},
+                    {id: 4002, subject: "Question about invoice", message: "I received invoice #12345...", department: "Billing", urgency: "Medium"},
+                    {id: 4003, subject: "Server completely down", message: "Our entire production...", department: "Technical", urgency: "Critical"},
+                    {id: 4004, subject: "Feature request", message: "Would love to see...", department: "General", urgency: "Low"},
+                    {id: 4005, subject: "Upgrade to enterprise plan", message: "Interested in upgrading...", department: "Sales", urgency: "Medium"}
+                ],
+                sentiment: [
+                    {id: 4001, subject: "Can't login on mobile app", message: "App crashes every time...", customer_sentiment: "Frustrated", issue_type: "Bug"},
+                    {id: 4002, subject: "Question about invoice", message: "I received invoice #12345...", customer_sentiment: "Neutral", issue_type: "Question"},
+                    {id: 4003, subject: "Server completely down", message: "Our entire production...", customer_sentiment: "Angry", issue_type: "Bug"},
+                    {id: 4004, subject: "Feature request", message: "Would love to see...", customer_sentiment: "Happy", issue_type: "Feature Request"},
+                    {id: 4005, subject: "Upgrade to enterprise plan", message: "Interested in upgrading...", customer_sentiment: "Happy", issue_type: "Question"}
+                ],
+                response: [
+                    {id: 4001, subject: "Can't login on mobile app", message: "App crashes every time...", estimated_response_time: "2 hours", requires_manager: "No"},
+                    {id: 4002, subject: "Question about invoice", message: "I received invoice #12345...", estimated_response_time: "1 day", requires_manager: "No"},
+                    {id: 4003, subject: "Server completely down", message: "Our entire production...", estimated_response_time: "30 minutes", requires_manager: "Yes"},
+                    {id: 4004, subject: "Feature request", message: "Would love to see...", estimated_response_time: "1 week", requires_manager: "No"},
+                    {id: 4005, subject: "Upgrade to enterprise plan", message: "Interested in upgrading...", estimated_response_time: "4 hours", requires_manager: "Yes"}
+                ]
+            },
+            'classify-transactions': {
+                initial: [
+                    {id: 5001, merchant: "Uber Eats", amount: 32.45, description: "Food delivery - Thai Palace"},
+                    {id: 5002, merchant: "Netflix", amount: 15.99, description: "Monthly subscription"},
+                    {id: 5003, merchant: "Shell Gas Station", amount: 45.00, description: "Fuel purchase"},
+                    {id: 5004, merchant: "Amazon", amount: 89.99, description: "Electronics - wireless headphones"},
+                    {id: 5005, merchant: "AT&T", amount: 120.00, description: "Monthly phone bill"}
+                ],
+                classify: [
+                    {id: 5001, merchant: "Uber Eats", amount: 32.45, description: "Food delivery...", category: "Food", subcategory: "Delivery"},
+                    {id: 5002, merchant: "Netflix", amount: 15.99, description: "Monthly subscription", category: "Entertainment", subcategory: "Streaming"},
+                    {id: 5003, merchant: "Shell Gas Station", amount: 45.00, description: "Fuel purchase", category: "Transport", subcategory: "Fuel"},
+                    {id: 5004, merchant: "Amazon", amount: 89.99, description: "Electronics...", category: "Shopping", subcategory: "Electronics"},
+                    {id: 5005, merchant: "AT&T", amount: 120.00, description: "Monthly phone bill", category: "Bills", subcategory: "Telecom"}
+                ],
+                analysis: [
+                    {id: 5001, merchant: "Uber Eats", amount: 32.45, description: "Food delivery...", is_recurring: "No", payment_type: "One-time", necessity: "Discretionary"},
+                    {id: 5002, merchant: "Netflix", amount: 15.99, description: "Monthly subscription", is_recurring: "Yes", payment_type: "Subscription", necessity: "Discretionary"},
+                    {id: 5003, merchant: "Shell Gas Station", amount: 45.00, description: "Fuel purchase", is_recurring: "Maybe", payment_type: "One-time", necessity: "Essential"},
+                    {id: 5004, merchant: "Amazon", amount: 89.99, description: "Electronics...", is_recurring: "No", payment_type: "One-time", necessity: "Discretionary"},
+                    {id: 5005, merchant: "AT&T", amount: 120.00, description: "Monthly phone bill", is_recurring: "Yes", payment_type: "Subscription", necessity: "Essential"}
+                ],
+                risk: [
+                    {id: 5001, merchant: "Uber Eats", amount: 32.45, description: "Food delivery...", risk_level: "Low", needs_review: "No"},
+                    {id: 5002, merchant: "Netflix", amount: 15.99, description: "Monthly subscription", risk_level: "Low", needs_review: "No"},
+                    {id: 5003, merchant: "Shell Gas Station", amount: 45.00, description: "Fuel purchase", risk_level: "Low", needs_review: "No"},
+                    {id: 5004, merchant: "Amazon", amount: 89.99, description: "Electronics...", risk_level: "Medium", needs_review: "No"},
+                    {id: 5005, merchant: "AT&T", amount: 120.00, description: "Monthly phone bill", risk_level: "Low", needs_review: "No"}
+                ]
+            },
+            'filter-products': {
+                initial: [
+                    {id: 1001, name: "Wireless Mouse", price: 25.99, category: "Electronics", description: "Ergonomic design, perfect for long work sessions"},
+                    {id: 1002, name: "Standing Desk", price: 399.99, category: "Furniture", description: "Adjustable height, promotes better posture and health"},
+                    {id: 1003, name: "Meditation Cushion", price: 34.99, category: "Wellness", description: "Comfortable support for daily mindfulness practice"},
+                    {id: 1004, name: "Blue Light Glasses", price: 29.99, category: "Accessories", description: "Reduce eye strain from screens, improve sleep quality"},
+                    {id: 1005, name: "Noise Canceling Headphones", price: 249.99, category: "Electronics", description: "Premium audio, great for focus and productivity"},
+                    {id: 1006, name: "Yoga Mat", price: 45.00, category: "Wellness", description: "Non-slip surface for safe home workouts"}
+                ],
+                wellness: [
+                    {id: 1002, name: "Standing Desk", price: 399.99, category: "Furniture", description: "Adjustable height, promotes better posture and health"},
+                    {id: 1003, name: "Meditation Cushion", price: 34.99, category: "Wellness", description: "Comfortable support for daily mindfulness practice"},
+                    {id: 1004, name: "Blue Light Glasses", price: 29.99, category: "Accessories", description: "Reduce eye strain from screens, improve sleep quality"},
+                    {id: 1006, name: "Yoga Mat", price: 45.00, category: "Wellness", description: "Non-slip surface for safe home workouts"}
+                ],
+                remote: [
+                    {id: 1001, name: "Wireless Mouse", price: 25.99, category: "Electronics", description: "Ergonomic design, perfect for long work sessions"},
+                    {id: 1002, name: "Standing Desk", price: 399.99, category: "Furniture", description: "Adjustable height, promotes better posture and health"},
+                    {id: 1005, name: "Noise Canceling Headphones", price: 249.99, category: "Electronics", description: "Premium audio, great for focus and productivity"}
+                ],
+                gift: [
+                    {id: 1003, name: "Meditation Cushion", price: 34.99, category: "Wellness", description: "Comfortable support for daily mindfulness practice"},
+                    {id: 1004, name: "Blue Light Glasses", price: 29.99, category: "Accessories", description: "Reduce eye strain from screens, improve sleep quality"},
+                    {id: 1006, name: "Yoga Mat", price: 45.00, category: "Wellness", description: "Non-slip surface for safe home workouts"}
+                ]
+            },
+            'filter-reviews': {
+                initial: [
+                    {id: 6001, rating: 5, text: "Absolutely love this product! Works perfectly.", verified: "Yes", days_ago: 15},
+                    {id: 6002, rating: 2, text: "Broke after 2 days", verified: "No", days_ago: 45},
+                    {id: 6003, rating: 4, text: "Great quality and fast shipping. The build is solid and works as advertised. Highly recommend!", verified: "Yes", days_ago: 20},
+                    {id: 6004, rating: 1, text: "App crashes constantly and customer support is unresponsive. Very disappointed.", verified: "Yes", days_ago: 5},
+                    {id: 6005, rating: 5, text: "Perfect", verified: "No", days_ago: 60}
+                ],
+                positive: [
+                    {id: 6001, rating: 5, text: "Absolutely love this product! Works perfectly.", verified: "Yes", days_ago: 15},
+                    {id: 6003, rating: 4, text: "Great quality and fast shipping. The build is solid...", verified: "Yes", days_ago: 20}
+                ],
+                detailed: [
+                    {id: 6003, rating: 4, text: "Great quality and fast shipping. The build is solid...", verified: "Yes", days_ago: 20},
+                    {id: 6004, rating: 1, text: "App crashes constantly and customer support...", verified: "Yes", days_ago: 5}
+                ],
+                actionable: [
+                    {id: 6004, rating: 1, text: "App crashes constantly and customer support...", verified: "Yes", days_ago: 5}
+                ]
+            },
+            'filter-employees': {
+                initial: [
+                    {id: 7001, name: "Alice Johnson", title: "Senior Software Engineer", experience: 7, location: "San Francisco", rating: 4.5},
+                    {id: 7002, name: "Bob Smith", title: "Marketing Manager", experience: 4, location: "New York", rating: 3.8},
+                    {id: 7003, name: "Carol Davis", title: "Software Engineer", experience: 3, location: "Remote", rating: 4.2},
+                    {id: 7004, name: "David Lee", title: "Lead Data Scientist", experience: 8, location: "Seattle", rating: 4.7},
+                    {id: 7005, name: "Emma Wilson", title: "DevOps Engineer", experience: 5, location: "San Francisco", rating: 4.0}
+                ],
+                senior: [
+                    {id: 7001, name: "Alice Johnson", title: "Senior Software Engineer", experience: 7, location: "San Francisco", rating: 4.5},
+                    {id: 7004, name: "David Lee", title: "Lead Data Scientist", experience: 8, location: "Seattle", rating: 4.7}
+                ],
+                tech: [
+                    {id: 7001, name: "Alice Johnson", title: "Senior Software Engineer", experience: 7, location: "San Francisco", rating: 4.5},
+                    {id: 7003, name: "Carol Davis", title: "Software Engineer", experience: 3, location: "Remote", rating: 4.2},
+                    {id: 7005, name: "Emma Wilson", title: "DevOps Engineer", experience: 5, location: "San Francisco", rating: 4.0}
+                ],
+                promotion: [
+                    {id: 7003, name: "Carol Davis", title: "Software Engineer", experience: 3, location: "Remote", rating: 4.2},
+                    {id: 7005, name: "Emma Wilson", title: "DevOps Engineer", experience: 5, location: "San Francisco", rating: 4.0}
+                ]
+            },
+            'anon-customers': {
+                initial: [
+                    {id: 3001, customer: "John Smith", email: "john.smith@email.com", phone: "555-1234", notes: "Preferred customer since 2020"},
+                    {id: 3002, customer: "Jane Doe", email: "jane.doe@email.com", phone: "555-5678", notes: "Requested callback about refund"},
+                    {id: 3003, customer: "Bob Johnson", email: "bob.j@email.com", phone: "555-9012", notes: "VIP member, special discount applied"}
+                ],
+                anonymize: [
+                    {id: 3001, customer: "XX", email: "XX", phone: "XX", notes: "Preferred customer since 2020"},
+                    {id: 3002, customer: "XX", email: "XX", phone: "XX", notes: "Requested callback about refund"},
+                    {id: 3003, customer: "XX", email: "XX", phone: "XX", notes: "VIP member, special discount applied"}
+                ],
+                redact: [
+                    {id: 3001, customer: "John Smith", email: "[REDACTED]", phone: "[REDACTED]", notes: "Preferred customer since 2020"},
+                    {id: 3002, customer: "Jane Doe", email: "[REDACTED]", phone: "[REDACTED]", notes: "Requested callback about refund"},
+                    {id: 3003, customer: "Bob Johnson", email: "[REDACTED]", phone: "[REDACTED]", notes: "VIP member, special discount applied"}
+                ],
+                partial: [
+                    {id: 3001, customer: "John", email: "john.smith@XX", phone: "555-XXXX", notes: "Preferred customer since 2020"},
+                    {id: 3002, customer: "Jane", email: "jane.doe@XX", phone: "555-XXXX", notes: "Requested callback about refund"},
+                    {id: 3003, customer: "Bob", email: "bob.j@XX", phone: "555-XXXX", notes: "VIP member, special discount applied"}
+                ]
+            },
+            'anon-medical': {
+                initial: [
+                    {patient: "Sarah Martinez", dob: "1985-03-15", mrn: "MRN-12345", diagnosis: "Type 2 Diabetes", notes: "Patient Sarah complained of fatigue. Lives at 123 Main St."},
+                    {patient: "Michael Chen", dob: "1972-08-22", mrn: "MRN-67890", diagnosis: "Hypertension", notes: "Michael reports chest pain. Follow up on 2024-12-15."},
+                    {patient: "Lisa Brown", dob: "1990-11-05", mrn: "MRN-54321", diagnosis: "Asthma", notes: "Lisa Brown using inhaler twice daily. Address: 456 Oak Ave."}
+                ],
+                full: [
+                    {patient: "[PATIENT-001]", dob: "XX", mrn: "XX", diagnosis: "Type 2 Diabetes", notes: "Patient complained of fatigue"},
+                    {patient: "[PATIENT-002]", dob: "XX", mrn: "XX", diagnosis: "Hypertension", notes: "Reports chest pain. Follow up scheduled"},
+                    {patient: "[PATIENT-003]", dob: "XX", mrn: "XX", diagnosis: "Asthma", notes: "Using inhaler twice daily"}
+                ],
+                partial: [
+                    {patient: "[ANON]", dob: "Age: 30-40", mrn: "XX", diagnosis: "Type 2 Diabetes", notes: "Patient complained of fatigue"},
+                    {patient: "[ANON]", dob: "Age: 50-60", mrn: "XX", diagnosis: "Hypertension", notes: "Reports chest pain"},
+                    {patient: "[ANON]", dob: "Age: 30-40", mrn: "XX", diagnosis: "Asthma", notes: "Using inhaler twice daily"}
+                ],
+                research: [
+                    {patient: "STUDY-001", dob: "Age: 35-40", mrn: "XX", diagnosis: "Type 2 Diabetes", notes: "Complaints of fatigue"},
+                    {patient: "STUDY-002", dob: "Age: 50-55", mrn: "XX", diagnosis: "Hypertension", notes: "Chest pain reported"},
+                    {patient: "STUDY-003", dob: "Age: 30-35", mrn: "XX", diagnosis: "Asthma", notes: "Inhaler usage twice daily"}
+                ]
+            },
+            'anon-hr': {
+                initial: [
+                    {employee: "Tom Anderson", title: "Software Engineer", dept: "Engineering", ssn: "123-45-6789", salary: 95000, address: "789 Pine St, Seattle, WA", feedback: "Tom exceeded expectations on Project Phoenix under manager Sarah Lee"},
+                    {employee: "Rachel Green", title: "Senior Manager", dept: "Operations", ssn: "987-65-4321", salary: 125000, address: "321 Elm St, Portland, OR", feedback: "Rachel shows strong leadership. Recommended for promotion by Alex Kim"},
+                    {employee: "James Wilson", title: "Developer", dept: "Engineering", ssn: "456-78-9012", salary: 78000, address: "654 Maple Ave, Austin, TX", feedback: "James delivered Project Atlas on time. Great team player with Maria Garcia"}
+                ],
+                full: [
+                    {employee: "XX", title: "Software Engineer", dept: "Engineering", ssn: "XX", salary: 95000, address: "XX", feedback: "Employee exceeded expectations on project"},
+                    {employee: "XX", title: "Senior Manager", dept: "Operations", ssn: "XX", salary: 125000, address: "XX", feedback: "Shows strong leadership. Recommended for promotion"},
+                    {employee: "XX", title: "Developer", dept: "Engineering", ssn: "XX", salary: 78000, address: "XX", feedback: "Delivered project on time. Great team player"}
+                ],
+                salary: [
+                    {employee: "EMP-001", title: "Software Engineer", dept: "Engineering", ssn: "XX", salary: "$90K-$100K", address: "Seattle, WA", feedback: "Employee exceeded expectations on project"},
+                    {employee: "EMP-002", title: "Senior Manager", dept: "Operations", ssn: "XX", salary: "$120K-$130K", address: "Portland, OR", feedback: "Shows strong leadership. Recommended for promotion"},
+                    {employee: "EMP-003", title: "Developer", dept: "Engineering", ssn: "XX", salary: "$75K-$85K", address: "Austin, TX", feedback: "Delivered project on time. Great team player"}
+                ],
+                feedback: [
+                    {employee: "XX", title: "Software Engineer", dept: "Engineering", ssn: "XX", salary: 95000, address: "789 Pine St, Seattle, WA", feedback: "Exceeded expectations on project"},
+                    {employee: "XX", title: "Senior Manager", dept: "Operations", ssn: "XX", salary: 125000, address: "321 Elm St, Portland, OR", feedback: "Shows strong leadership. Recommended for promotion"},
+                    {employee: "XX", title: "Developer", dept: "Engineering", ssn: "XX", salary: 78000, address: "654 Maple Ave, Austin, TX", feedback: "Delivered project on time. Great team player"}
+                ]
+            }
+        };
 
-        mobileMenuToggle.addEventListener('click', () => {
-            navTabs.classList.toggle('show');
-            mobileMenuToggle.classList.toggle('active');
+        let currentState = {};
+        let spinnerIntervals = {};
+
+        // Get appropriate filename based on demo
+        function getFilename(demoId) {
+            if (demoId.includes('products')) return 'products.csv';
+            if (demoId.includes('emails')) return 'support_emails.csv';
+            if (demoId.includes('transactions')) return 'transactions.csv';
+            if (demoId.includes('reviews')) return 'reviews.csv';
+            if (demoId.includes('employees')) return 'employees.csv';
+            if (demoId.includes('customers')) return 'customer_data.csv';
+            if (demoId.includes('medical')) return 'patient_records.csv';
+            if (demoId.includes('hr')) return 'hr_data.csv';
+            return 'data.csv';
+        }
+
+        // Generate datatune code based on prompt
+        function generateCode(demoId, promptText) {
+            const filename = getFilename(demoId);
+            const isFilter = demoId.includes('filter') || demoId.includes('anon');
+            const operation = isFilter ? 'filter' : 'map';
+            
+            return {
+                line1: `df = dd.read_csv("${filename}")`,
+                line2: `prompt = "${promptText}"`,
+                line3: `df = dt.${operation}(prompt=prompt)(llm, df)`
+            };
+        }
+
+        // Animate CLI spinner
+        function startSpinner(demoId) {
+            const spinnerChars = ['|', '/', '-', '\\'];
+            let i = 0;
+            const spinnerElement = document.querySelector(`#spinner-${demoId} .terminal-spinner`);
+            const promptElement = document.getElementById(`spinner-prompt-${demoId}`);
+            
+            // Clear the prompt when starting spinner
+            promptElement.innerHTML = '';
+            
+            spinnerIntervals[demoId] = setInterval(() => {
+                spinnerElement.textContent = spinnerChars[i];
+                i = (i + 1) % spinnerChars.length;
+            }, 100);
+        }
+
+        function stopSpinner(demoId) {
+            if (spinnerIntervals[demoId]) {
+                clearInterval(spinnerIntervals[demoId]);
+                const spinnerElement = document.querySelector(`#spinner-${demoId} .terminal-spinner`);
+                spinnerElement.textContent = '';
+                // Show the prompt after spinner stops
+                const promptElement = document.getElementById(`spinner-prompt-${demoId}`);
+                promptElement.innerHTML = '<span class="terminal-prompt">>>> </span>';
+            }
+        }
+
+        function renderTable(demoId, data) {
+            const container = document.getElementById(`table-${demoId}`);
+            if (!data || data.length === 0) {
+                container.innerHTML = '<p>No data to display</p>';
+                return;
+            }
+
+            const keys = Object.keys(data[0]);
+            let html = '<table><thead><tr>';
+            keys.forEach(key => {
+                html += `<th>${key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' ')}</th>`;
+            });
+            html += '</tr></thead><tbody>';
+
+            data.forEach(row => {
+                html += '<tr>';
+                keys.forEach(key => {
+                    const cellClass = (currentState[demoId] !== 'initial' && !demoData[demoId].initial[0].hasOwnProperty(key)) ? 'new-column' : '';
+                    html += `<td class="${cellClass}">${row[key]}</td>`;
+                });
+                html += '</tr>';
+            });
+
+            html += '</tbody></table>';
+            container.innerHTML = html;
+        }
+
+        function runDemo(demoId) {
+            const loading = document.getElementById(`loading-${demoId}`);
+            const resetBtn = document.getElementById(`reset-${demoId}`);
+            const selectedButton = document.querySelector(`.prompt-btn.executing[data-demo="${demoId}"]`);
+            const selectedPrompt = selectedButton.dataset.prompt;
+            const promptText = selectedButton.textContent.trim();
+            
+            // Generate and display code
+            const code = generateCode(demoId, promptText);
+            document.getElementById(`code-${demoId}-1`).textContent = code.line1;
+            document.getElementById(`code-${demoId}-2`).textContent = code.line2;
+            document.getElementById(`code-${demoId}-3`).textContent = code.line3;
+            
+            loading.classList.add('active');
+            
+            // Start spinner
+            startSpinner(demoId);
+            
+            setTimeout(() => {
+                stopSpinner(demoId);
+                currentState[demoId] = selectedPrompt;
+                renderTable(demoId, demoData[demoId][selectedPrompt]);
+                resetBtn.classList.remove('hidden');
+            }, 2000);
+        }
+
+        function resetDemo(demoId) {
+            const resetBtn = document.getElementById(`reset-${demoId}`);
+            const loading = document.getElementById(`loading-${demoId}`);
+            stopSpinner(demoId);
+            // Clear the prompt when resetting
+            const promptElement = document.getElementById(`spinner-prompt-${demoId}`);
+            if (promptElement) {
+                promptElement.innerHTML = '';
+            }
+            currentState[demoId] = 'initial';
+            renderTable(demoId, demoData[demoId].initial);
+            resetBtn.classList.add('hidden');
+            loading.classList.remove('active');
+        }
+
+        document.querySelectorAll('.prompt-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (this.classList.contains('reset-btn')) return;
+                
+                const demo = this.dataset.demo;
+                
+                this.classList.add('executing');
+                runDemo(demo);
+                
+                setTimeout(() => {
+                    this.classList.remove('executing');
+                }, 1500);
+            });
         });
 
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('.nav-tab a').forEach(link => {
-            link.addEventListener('click', () => {
-                navTabs.classList.remove('show');
-                mobileMenuToggle.classList.remove('active');
+        // Example tab switching
+        document.querySelectorAll('.example-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const exampleId = this.dataset.example;
+                const parentSection = this.closest('.demo-section');
+                
+                parentSection.querySelectorAll('.example-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                parentSection.querySelectorAll('.example-tab').forEach(t => {
+                    t.classList.remove('active');
+                });
+                
+                document.getElementById(exampleId).classList.add('active');
+                this.classList.add('active');
             });
+        });
+
+        // Initialize all tables
+        Object.keys(demoData).forEach(demoId => {
+            currentState[demoId] = 'initial';
+            renderTable(demoId, demoData[demoId].initial);
         });
 
         // Create floating particles
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
-            const particleCount = window.innerWidth <= 768 ? 8 : 15; // Fewer particles on mobile
+            const particleCount = window.innerWidth <= 768 ? 8 : 15;
 
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
@@ -203,31 +1298,7 @@
             }
         }
 
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Nav background on scroll
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 50) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        });
-
-        // Initialize
+        // Initialize particles
         createParticles();
 
         // Recreate particles on resize

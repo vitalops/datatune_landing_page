@@ -94,14 +94,14 @@
 
         .hero {
             text-align: center;
-            padding: 80px 20px 60px;
+            padding: 60px 20px 40px;
             color: white;
             position: relative;
             z-index: 1;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: clamp(2rem, 8vw, 3.5rem);
             margin-bottom: 20px;
             font-weight: 700;
             background: linear-gradient(135deg, var(--light-text) 0%, var(--primary-color) 50%, var(--secondary-color) 100%);
@@ -121,10 +121,11 @@
         }
 
         .hero .subtitle {
-            font-size: 1.3rem;
+            font-size: clamp(1rem, 4vw, 1.3rem);
             color: var(--gray-text);
             max-width: 700px;
             margin: 0 auto 30px;
+            padding: 0 10px;
         }
 
         .hero .badges {
@@ -133,6 +134,7 @@
             gap: 10px;
             flex-wrap: wrap;
             margin-top: 20px;
+            padding: 0 10px;
         }
 
         .badge {
@@ -140,8 +142,9 @@
             border: 1px solid rgba(139, 92, 246, 0.3);
             padding: 8px 16px;
             border-radius: 20px;
-            font-size: 0.9rem;
+            font-size: clamp(0.75rem, 2vw, 0.9rem);
             color: var(--primary-color);
+            white-space: nowrap;
         }
 
         .container {
@@ -156,13 +159,13 @@
             background: rgba(139, 92, 246, 0.05);
             border: 1px solid rgba(139, 92, 246, 0.2);
             border-radius: 20px;
-            padding: 60px 40px;
+            padding: clamp(30px, 5vw, 60px) clamp(20px, 4vw, 40px);
             margin-bottom: 50px;
             backdrop-filter: blur(10px);
         }
 
         .intro-section h2 {
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 6vw, 2.5rem);
             color: var(--light-text);
             margin-bottom: 25px;
             text-align: center;
@@ -170,7 +173,7 @@
         }
 
         .intro-section > p {
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 3vw, 1.2rem);
             line-height: 1.8;
             color: var(--gray-text);
             margin-bottom: 20px;
@@ -184,7 +187,7 @@
             text-align: center;
             font-weight: 600;
             color: var(--primary-color);
-            font-size: 1.3rem;
+            font-size: clamp(1rem, 3vw, 1.3rem);
             margin-top: 40px;
         }
 
@@ -192,7 +195,7 @@
             background: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 20px;
-            padding: 40px 40px 20px 40px;
+            padding: clamp(20px, 4vw, 40px);
             margin-bottom: 40px;
             backdrop-filter: blur(10px);
         }
@@ -202,7 +205,7 @@
         }
 
         .demo-header h2 {
-            font-size: 2rem;
+            font-size: clamp(1.5rem, 5vw, 2rem);
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -211,7 +214,7 @@
 
         .demo-header p {
             color: var(--gray-text);
-            font-size: 1.1rem;
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
         }
 
         .use-case-intro {
@@ -226,6 +229,7 @@
             margin: 0;
             color: var(--gray-text);
             line-height: 1.6;
+            font-size: clamp(0.85rem, 2.5vw, 1rem);
         }
 
         .use-case-intro strong {
@@ -237,6 +241,8 @@
             gap: 5px;
             margin-bottom: 0;
             flex-wrap: wrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         .example-tab {
@@ -246,12 +252,13 @@
             border-bottom: 2px solid rgba(139, 92, 246, 0.2);
             border-radius: 10px 10px 0 0;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: clamp(0.75rem, 2vw, 0.9rem);
             transition: all 0.3s;
             font-weight: 500;
             color: var(--gray-text);
             position: relative;
             bottom: -2px;
+            white-space: nowrap;
         }
 
         .example-tab:hover:not(.active) {
@@ -272,7 +279,7 @@
             display: none;
             border: 2px solid var(--primary-color);
             border-radius: 0 0 15px 15px;
-            padding: 30px;
+            padding: clamp(20px, 4vw, 30px);
             margin-bottom: 20px;
             background: var(--card-bg);
             position: relative;
@@ -289,7 +296,7 @@
             padding: 15px 20px;
             border-radius: 8px;
             margin-bottom: 20px;
-            font-size: 0.95rem;
+            font-size: clamp(0.8rem, 2.5vw, 0.95rem);
             color: var(--gray-text);
             line-height: 1.6;
         }
@@ -312,10 +319,11 @@
             color: var(--light-text);
             border-radius: 10px;
             cursor: pointer;
-            font-size: 0.95rem;
+            font-size: clamp(0.85rem, 2.5vw, 0.95rem);
             transition: all 0.3s;
             font-weight: 500;
             text-align: left;
+            line-height: 1.4;
         }
 
         .prompt-btn:hover:not(.reset-btn) {
@@ -344,7 +352,7 @@
             background: rgba(236, 72, 153, 0.1);
             color: var(--secondary-color);
             padding: 8px 20px;
-            font-size: 0.85rem;
+            font-size: clamp(0.75rem, 2vw, 0.85rem);
             border: 2px solid var(--secondary-color);
         }
 
@@ -360,26 +368,32 @@
             margin: 20px 0;
             border-radius: 10px;
             border: 1px solid var(--border-color);
+            -webkit-overflow-scrolling: touch;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             background: rgba(0, 0, 0, 0.3);
+            min-width: 500px;
         }
 
         th {
             background: rgba(139, 92, 246, 0.3);
             color: white;
-            padding: 15px;
+            padding: 15px 10px;
             text-align: left;
             font-weight: 600;
+            font-size: clamp(0.75rem, 2vw, 0.9rem);
+            white-space: nowrap;
         }
 
         td {
-            padding: 12px 15px;
+            padding: 12px 10px;
             border-bottom: 1px solid var(--border-color);
             color: var(--gray-text);
+            font-size: clamp(0.75rem, 2vw, 0.9rem);
+            word-break: break-word;
         }
 
         tr:hover {
@@ -411,8 +425,10 @@
             padding: 15px;
             margin: 20px 0;
             font-family: 'Courier New', monospace;
-            font-size: 0.85rem;
+            font-size: clamp(0.7rem, 1.8vw, 0.85rem);
             color: #00ff00;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         .loading.active {
@@ -444,7 +460,7 @@
         .feature-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            padding: 30px;
+            padding: 30px 20px;
             border-radius: 15px;
             backdrop-filter: blur(10px);
             transition: all 0.3s;
@@ -457,13 +473,14 @@
         }
 
         .feature-card h3 {
-            font-size: 1.5rem;
+            font-size: clamp(1.2rem, 4vw, 1.5rem);
             margin-bottom: 10px;
             color: var(--primary-color);
         }
 
         .feature-card p {
             color: var(--gray-text);
+            font-size: clamp(0.85rem, 2.5vw, 1rem);
         }
 
         .cta {
@@ -473,7 +490,7 @@
         }
 
         .cta h2 {
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 6vw, 2.5rem);
             margin-bottom: 30px;
             background: linear-gradient(135deg, var(--light-text), var(--primary-color));
             -webkit-background-clip: text;
@@ -486,11 +503,11 @@
             color: white;
             border: none;
             border-radius: 30px;
-            font-size: 1.1rem;
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
-            margin: 0 10px;
+            margin: 10px;
             text-decoration: none;
             display: inline-block;
         }
@@ -498,6 +515,35 @@
         .cta-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 40px 20px 30px;
+            }
+
+            .container {
+                padding: 30px 15px;
+            }
+
+            .demo-section {
+                padding: 20px 15px;
+            }
+
+            .cta {
+                padding: 40px 20px;
+            }
+
+            .cta-btn {
+                display: block;
+                width: 90%;
+                max-width: 300px;
+                margin: 10px auto;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -513,7 +559,6 @@
             <span class="badge">🚀 Fast & Scalable</span>
             <span class="badge">🤖 Multiple LLM Support</span>
             <span class="badge">📦 Open Source</span>
-            <!-- <span class="badge">⚡ Dask Powered</span> -->
         </div>
     </div>
 
@@ -611,7 +656,7 @@
                 </div>
                 <div class="prompt-selector">
                     <button class="prompt-btn" data-demo="classify-transactions" data-prompt="classify">
-                        Add 'Category' (Food/Transport/Entertainment/Shopping/Bills/Other) and 'Subcategory' extracted from merchant name and description
+                        Add 'Category' (Food / Transport / Entertainment / <br>Shopping / Bills / Other) and 'Subcategory' extracted from merchant name and description
                     </button>
                     <button class="prompt-btn" data-demo="classify-transactions" data-prompt="analysis">
                         Add 'Is_Recurring' (Yes/No/Maybe), 'Payment_Type' (Subscription/One-time/Installment), and 'Necessity' (Essential/Discretionary) based on merchant, amount, and description patterns
@@ -1117,7 +1162,6 @@
         let currentState = {};
         let spinnerIntervals = {};
 
-        // Get appropriate filename based on demo
         function getFilename(demoId) {
             if (demoId.includes('products')) return 'products.csv';
             if (demoId.includes('emails')) return 'support_emails.csv';
@@ -1130,7 +1174,6 @@
             return 'data.csv';
         }
 
-        // Generate datatune code based on prompt
         function generateCode(demoId, promptText) {
             const filename = getFilename(demoId);
             const isFilter = demoId.includes('filter') || demoId.includes('anon');
@@ -1143,14 +1186,12 @@
             };
         }
 
-        // Animate CLI spinner
         function startSpinner(demoId) {
             const spinnerChars = ['|', '/', '-', '\\'];
             let i = 0;
             const spinnerElement = document.querySelector(`#spinner-${demoId} .terminal-spinner`);
             const promptElement = document.getElementById(`spinner-prompt-${demoId}`);
             
-            // Clear the prompt when starting spinner
             promptElement.innerHTML = '';
             
             spinnerIntervals[demoId] = setInterval(() => {
@@ -1164,7 +1205,6 @@
                 clearInterval(spinnerIntervals[demoId]);
                 const spinnerElement = document.querySelector(`#spinner-${demoId} .terminal-spinner`);
                 spinnerElement.textContent = '';
-                // Show the prompt after spinner stops
                 const promptElement = document.getElementById(`spinner-prompt-${demoId}`);
                 promptElement.innerHTML = '<span class="terminal-prompt">>>> </span>';
             }
@@ -1204,7 +1244,6 @@
             const selectedPrompt = selectedButton.dataset.prompt;
             const promptText = selectedButton.textContent.trim();
             
-            // Generate and display code
             const code = generateCode(demoId, promptText);
             document.getElementById(`code-${demoId}-1`).textContent = code.line1;
             document.getElementById(`code-${demoId}-2`).textContent = code.line2;
@@ -1212,7 +1251,6 @@
             
             loading.classList.add('active');
             
-            // Start spinner
             startSpinner(demoId);
             
             setTimeout(() => {
@@ -1227,7 +1265,6 @@
             const resetBtn = document.getElementById(`reset-${demoId}`);
             const loading = document.getElementById(`loading-${demoId}`);
             stopSpinner(demoId);
-            // Clear the prompt when resetting
             const promptElement = document.getElementById(`spinner-prompt-${demoId}`);
             if (promptElement) {
                 promptElement.innerHTML = '';
@@ -1253,7 +1290,6 @@
             });
         });
 
-        // Example tab switching
         document.querySelectorAll('.example-tab').forEach(tab => {
             tab.addEventListener('click', function() {
                 const exampleId = this.dataset.example;
@@ -1272,13 +1308,11 @@
             });
         });
 
-        // Initialize all tables
         Object.keys(demoData).forEach(demoId => {
             currentState[demoId] = 'initial';
             renderTable(demoId, demoData[demoId].initial);
         });
 
-        // Create floating particles
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
             const particleCount = window.innerWidth <= 768 ? 8 : 15;
@@ -1298,10 +1332,8 @@
             }
         }
 
-        // Initialize particles
         createParticles();
 
-        // Recreate particles on resize
         window.addEventListener('resize', () => {
             const particlesContainer = document.getElementById('particles');
             particlesContainer.innerHTML = '';

@@ -92,6 +92,34 @@
             }
         }
 
+        .github-link {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+
+        .github-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .github-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+        }
+
         .hero {
             text-align: center;
             padding: 60px 20px 40px;
@@ -518,6 +546,16 @@
         }
 
         @media (max-width: 768px) {
+            .github-link {
+                top: 10px;
+                right: 10px;
+            }
+
+            .github-btn {
+                padding: 8px 16px;
+                font-size: 0.8rem;
+            }
+
             .hero {
                 padding: 40px 20px 30px;
             }
@@ -550,6 +588,11 @@
 <body>
     <!-- Floating Particles -->
     <div class="particles" id="particles"></div>
+
+    <!-- GitHub Link at Top -->
+    <div class="github-link">
+        <a href="https://github.com/vitalops/datatune" target="_blank" class="github-btn">⭐ Star on GitHub</a>
+    </div>
 
     <div class="hero">
         <img src="datatune-logo.png" alt="Datatune Logo" class="logo-img">

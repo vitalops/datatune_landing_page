@@ -92,34 +92,6 @@
             }
         }
 
-        .github-link {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            z-index: 100;
-        }
-
-        .github-btn {
-            padding: 10px 20px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            border: none;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .github-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
-        }
-
         .hero {
             text-align: center;
             padding: 60px 20px 40px;
@@ -173,6 +145,36 @@
             font-size: clamp(0.75rem, 2vw, 0.9rem);
             color: var(--primary-color);
             white-space: nowrap;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+            padding: 0 10px;
+        }
+
+        .hero-btn {
+            padding: 12px 28px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: clamp(0.85rem, 2.5vw, 1rem);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
         }
 
         .container {
@@ -546,18 +548,19 @@
         }
 
         @media (max-width: 768px) {
-            .github-link {
-                top: 10px;
-                right: 10px;
-            }
-
-            .github-btn {
-                padding: 8px 16px;
-                font-size: 0.8rem;
-            }
-
             .hero {
                 padding: 40px 20px 30px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-btn {
+                width: 90%;
+                max-width: 300px;
+                justify-content: center;
             }
 
             .container {
@@ -589,15 +592,14 @@
     <!-- Floating Particles -->
     <div class="particles" id="particles"></div>
 
-    <!-- GitHub Link at Top -->
-    <div class="github-link">
-        <a href="https://github.com/vitalops/datatune" target="_blank" class="github-btn">⭐ Star on GitHub</a>
-    </div>
-
     <div class="hero">
         <img src="datatune-logo.png" alt="Datatune Logo" class="logo-img">
         <h1>Datatune</h1>
         <p class="subtitle">Transform your data with natural language using LLMs</p>
+        <div class="hero-buttons">
+            <a href="https://github.com/vitalops/datatune" target="_blank" class="hero-btn">⭐ Star on GitHub</a>
+            <a href="https://blog.datatune.ai/" target="_blank" class="hero-btn">📝 Read Blog</a>
+        </div>
         <div class="badges">
             <span class="badge">🚀 Fast & Scalable</span>
             <span class="badge">🤖 Multiple LLM Support</span>
